@@ -21,6 +21,13 @@ const board: Board = {
   cellSize: 20,
 };
 
+const snake: number[][] = []; // snake position parts
+const food: number[] = []; // food position;
+
+// data for animation
+let then: number = Date.now();
+let now: number;
+
 const createBoard = (): void => {
   canvas.width = 400;
   canvas.height = 400;
