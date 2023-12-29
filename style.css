@@ -5,3 +5,8 @@
   padding: 0;
   box-sizing: inherit;
 }
+
+html {
+  box-sizing: border-box;
+  font-family: "Nova Square", sans-serif;
+}
