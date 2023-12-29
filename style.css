@@ -27,3 +27,9 @@ body {
   text-align: center;
   width: 100%;
 }
+
+#canvas {
+  background-color: var(--canvas-bg);
+  border: 0.5rem solid var(--canvas-border-bg);
+  border-radius: 0.5rem;
+}
