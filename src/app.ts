@@ -77,10 +77,37 @@ const drawFood = (): void => {
   ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
 };
 
+const isSnakeOffBoard = (x: number, y: number): boolean => {
+  return x < 0 || x >= board.width || y < 0 || y >= board.height;
+};
+
+// move snake elements every animation
+const moveSnake = (): void => {
+  const [head] = snake;
+
+  const nextX = head[0] + game.dx;
+  const nextY = head[1] + game.dy;
+
+  snake.pop();
+
+  snake.unshift([nextX, nextY]);
+};
+
 const draw = (): void => {
   clearSnake();
   drawSnake();
   drawFood();
+
+  const [headX, headY] = snake[0];
+
+  const offboard = isSnakeOffBoard(headX, headY);
+
+  if (offboard) {
+    game.playing = false;
+    return;
+  }
+
+  moveSnake();
 };
 
 const clearSnake = (): void => {
