@@ -62,8 +62,12 @@ const drawFood = () => {
     ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
 };
 const draw = () => {
+    clearSnake();
     drawSnake();
     drawFood();
+};
+const clearSnake = () => {
+    ctx.clearRect(0, 0, board.width, board.height);
 };
 const animate = () => {
     // compare timestamp difference after animate function

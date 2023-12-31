@@ -78,8 +78,13 @@ const drawFood = (): void => {
 };
 
 const draw = (): void => {
+  clearSnake();
   drawSnake();
   drawFood();
+};
+
+const clearSnake = (): void => {
+  ctx.clearRect(0, 0, board.width, board.height);
 };
 
 const animate = (): void => {
