@@ -27,6 +27,25 @@ const createBoard = () => {
     canvas.height = board.height;
     game.dx *= board.cellSize;
 };
+// add initial snake part positions
+const initSnakePositions = () => {
+    for (let i = 0; i <= game.snakeParts; i++) {
+        const x = game.startX - i * board.cellSize;
+        const y = game.startY;
+        snake[i] = [x, y];
+    }
+};
+// draw snake parts on canvas board
+const drawSnake = () => {
+    ctx.fillStyle = "orangered";
+    ctx.strokeStyle = "#ecfeff";
+    snake.forEach((part, i) => {
+        ctx.fillRect(part[0], part[1], board.cellSize, board.cellSize);
+    });
+};
+const draw = () => {
+    drawSnake();
+};
 const animate = () => {
     // compare timestamp difference after animate function
     // to slow animation frames
@@ -35,8 +54,16 @@ const animate = () => {
     if (difference > 125) {
         game.changeDirection = false;
         then = now;
+        draw();
     }
     window.requestAnimationFrame(animate);
 };
-createBoard();
+const init = () => {
+    if (canvas.getContext !== undefined) {
+        createBoard();
+        initSnakePositions();
+        animate();
+    }
+};
+init();
 export {};
