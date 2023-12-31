@@ -1,6 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const canvas = document.querySelector("#canvas");
+const ctx = canvas.getContext("2d");
 // Game data
 const game = {
     startX: 200,
@@ -24,8 +23,20 @@ const food = []; // food position;
 let then = Date.now();
 let now;
 const createBoard = () => {
-    canvas.width = 400;
-    canvas.height = 400;
+    canvas.width = board.width;
+    canvas.height = board.height;
     game.dx *= board.cellSize;
 };
+const animate = () => {
+    // compare timestamp difference after animate function
+    // to slow animation frames
+    now = Date.now();
+    const difference = now - then;
+    if (difference > 125) {
+        game.changeDirection = false;
+        then = now;
+    }
+    window.requestAnimationFrame(animate);
+};
 createBoard();
+export {};
