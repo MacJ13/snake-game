@@ -35,16 +35,35 @@ const initSnakePositions = () => {
         snake[i] = [x, y];
     }
 };
+// create random position for food
+const addRandomFoodPosition = () => {
+    let x = Math.floor((Math.random() * canvas.width) / board.cellSize) *
+        board.cellSize;
+    let y = Math.floor((Math.random() * canvas.height) / board.cellSize) *
+        board.cellSize;
+    const isAvailableSnakePosition = snake.find((s) => s[0] === x && s[1] === y);
+    if (isAvailableSnakePosition)
+        addRandomFoodPosition();
+    else {
+        food[0] = x;
+        food[1] = y;
+    }
+};
 // draw snake parts on canvas board
 const drawSnake = () => {
     ctx.fillStyle = "orangered";
     ctx.strokeStyle = "#ecfeff";
-    snake.forEach((part, i) => {
+    snake.forEach((part) => {
         ctx.fillRect(part[0], part[1], board.cellSize, board.cellSize);
     });
 };
+const drawFood = () => {
+    ctx.fillStyle = "black";
+    ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
+};
 const draw = () => {
     drawSnake();
+    drawFood();
 };
 const animate = () => {
     // compare timestamp difference after animate function
@@ -62,6 +81,7 @@ const init = () => {
     if (canvas.getContext !== undefined) {
         createBoard();
         initSnakePositions();
+        addRandomFoodPosition();
         animate();
     }
 };
