@@ -69,13 +69,14 @@ const moveSnake = () => {
     const [head] = snake;
     const nextX = head[0] + game.dx;
     const nextY = head[1] + game.dy;
+    // add new position and remove last position
     snake.pop();
     snake.unshift([nextX, nextY]);
 };
 const draw = () => {
     clearSnake();
-    drawSnake();
     drawFood();
+    drawSnake();
     const [headX, headY] = snake[0];
     const offboard = isSnakeOffBoard(headX, headY);
     if (offboard) {
@@ -108,4 +109,26 @@ const init = () => {
     }
 };
 init();
+document.addEventListener("keydown", (e) => {
+    // prevent to not press keyboard to trigger reverse current direction
+    if (game.changeDirection)
+        return;
+    game.changeDirection = true;
+    if (e.key === "ArrowUp" && game.dy === 0) {
+        game.dy = -1 * board.cellSize;
+        game.dx = 0;
+    }
+    else if (e.key === "ArrowRight" && game.dx === 0) {
+        game.dy = 0;
+        game.dx = 1 * board.cellSize;
+    }
+    else if (e.key === "ArrowDown" && game.dy === 0) {
+        game.dy = 1 * board.cellSize;
+        game.dx = 0;
+    }
+    else if (e.key === "ArrowLeft" && game.dx === 0) {
+        game.dy = 0;
+        game.dx = -1 * board.cellSize;
+    }
+});
 export {};
