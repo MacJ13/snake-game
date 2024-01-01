@@ -83,8 +83,18 @@ const isSnakeOffBoard = (x: number, y: number): boolean => {
 
 // move snake elements every animation
 const moveSnake = (): void => {
-  const [head] = snake;
+  const [head, ...others] = snake;
   const last = [snake.length - 1];
+
+  // detect collision between head and other snake parts
+  const collision = others.every(
+    (part) => head[0] !== part[0] || head[1] !== part[1]
+  );
+
+  if (!collision) {
+    game.playing = false;
+    return;
+  }
 
   // detect if snake get the food
   if (food[0] === head[0] && food[1] === head[1]) {
