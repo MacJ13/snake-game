@@ -84,6 +84,14 @@ const isSnakeOffBoard = (x: number, y: number): boolean => {
 // move snake elements every animation
 const moveSnake = (): void => {
   const [head] = snake;
+  const last = [snake.length - 1];
+
+  // detect if snake get the food
+  if (food[0] === head[0] && food[1] === head[1]) {
+    snake.push([...last]);
+
+    addRandomFoodPosition();
+  }
 
   const nextX = head[0] + game.dx;
   const nextY = head[1] + game.dy;
