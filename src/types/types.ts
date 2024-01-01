@@ -9,6 +9,7 @@ type GameInit = {
   startY: number;
   dx: number;
   dy: number;
+  direction: string;
   snakeParts: number;
 };
 type GameStatus = {

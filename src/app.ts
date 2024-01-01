@@ -13,6 +13,7 @@ const game: Game = {
   dx: 1,
   dy: 0,
   changeDirection: false,
+  direction: "right",
   playing: true,
   score: 0,
   snakeParts: 3,
@@ -25,7 +26,13 @@ const board: Board = {
   cellSize: 20,
 };
 
-const snake: number[][] = []; // snake position parts
+interface SnakePart {
+  x: number;
+  y: number;
+  direction: string;
+}
+
+const snake: SnakePart[] = []; // snake position parts
 const food: number[] = []; // food position;
 
 // data for animation
@@ -44,7 +51,7 @@ const initSnakePositions = () => {
     const x = game.startX - i * board.cellSize;
     const y = game.startY;
 
-    snake[i] = [x, y];
+    snake[i] = { x, y, direction: "right" };
   }
 };
 
@@ -57,7 +64,7 @@ const addRandomFoodPosition = (): void => {
     Math.floor((Math.random() * canvas.height) / board.cellSize) *
     board.cellSize;
 
-  const isAvailableSnakePosition = snake.find((s) => s[0] === x && s[1] === y);
+  const isAvailableSnakePosition = snake.find((s) => s.x === x && s.y === y);
 
   if (isAvailableSnakePosition) addRandomFoodPosition();
   else {
@@ -72,7 +79,7 @@ const drawSnake = (): void => {
   ctx.strokeStyle = "#ecfeff";
 
   snake.forEach((part) => {
-    ctx.fillRect(part[0], part[1], board.cellSize, board.cellSize);
+    ctx.fillRect(part.x, part.y, board.cellSize, board.cellSize);
   });
 };
 
@@ -89,11 +96,11 @@ const isSnakeOffBoard = (x: number, y: number): boolean => {
 // move snake elements every animation
 const moveSnake = (): void => {
   const [head, ...others] = snake;
-  const last = [snake.length - 1];
+  const last = snake[snake.length - 1];
 
   // detect collision between head and other snake parts
   const collision = others.every(
-    (part) => head[0] !== part[0] || head[1] !== part[1]
+    (part) => head.x !== part.x || head.y !== part.y
   );
 
   if (!collision) {
@@ -102,27 +109,30 @@ const moveSnake = (): void => {
   }
 
   // detect if snake get the food
-  if (food[0] === head[0] && food[1] === head[1]) {
-    snake.push([...last]);
+  if (food[0] === head.x && food[1] === head.y) {
+    snake.push({ ...last });
 
     addRandomFoodPosition();
   }
 
-  const nextX = head[0] + game.dx;
-  const nextY = head[1] + game.dy;
+  const nextX = head.x + game.dx;
+  const nextY = head.y + game.dy;
   // add new position and remove last position
   snake.pop();
-  snake.unshift([nextX, nextY]);
+  snake.unshift({ x: nextX, y: nextY, direction: game.direction });
 };
 
 const draw = (): void => {
+  if (!game.playing) {
+    return;
+  }
   clearSnake();
   drawFood();
   drawSnake();
 
-  const [headX, headY] = snake[0];
+  const head = snake[0];
 
-  const offboard = isSnakeOffBoard(headX, headY);
+  const offboard = isSnakeOffBoard(head.x, head.y);
 
   if (offboard) {
     game.playing = false;
@@ -172,14 +182,18 @@ document.addEventListener("keydown", (e: KeyboardEvent) => {
   if (e.key === "ArrowUp" && game.dy === 0) {
     game.dy = -1 * board.cellSize;
     game.dx = 0;
+    game.direction = "up";
   } else if (e.key === "ArrowRight" && game.dx === 0) {
     game.dy = 0;
     game.dx = 1 * board.cellSize;
+    game.direction = "right";
   } else if (e.key === "ArrowDown" && game.dy === 0) {
     game.dy = 1 * board.cellSize;
     game.dx = 0;
+    game.direction = "down";
   } else if (e.key === "ArrowLeft" && game.dx === 0) {
     game.dy = 0;
     game.dx = -1 * board.cellSize;
+    game.direction = "left";
   }
 });
