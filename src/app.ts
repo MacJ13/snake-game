@@ -2,6 +2,10 @@ import { Game, Board } from "./types/types.js";
 
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
+
+// image elements
+const foodImg: HTMLImageElement = document.querySelector("#food-img")!;
+
 // Game data
 const game: Game = {
   startX: 200,
@@ -73,8 +77,9 @@ const drawSnake = (): void => {
 };
 
 const drawFood = (): void => {
-  ctx.fillStyle = "black";
-  ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
+  ctx.drawImage(foodImg, food[0], food[1], board.cellSize, board.cellSize);
+  // ctx.fillStyle = "black";
+  // ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
 };
 
 const isSnakeOffBoard = (x: number, y: number): boolean => {

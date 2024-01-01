@@ -1,5 +1,7 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
+// image elements
+const foodImg = document.querySelector("#food-img");
 // Game data
 const game = {
     startX: 200,
@@ -58,8 +60,9 @@ const drawSnake = () => {
     });
 };
 const drawFood = () => {
-    ctx.fillStyle = "black";
-    ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
+    ctx.drawImage(foodImg, food[0], food[1], board.cellSize, board.cellSize);
+    // ctx.fillStyle = "black";
+    // ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
 };
 const isSnakeOffBoard = (x, y) => {
     return x < 0 || x >= board.width || y < 0 || y >= board.height;
