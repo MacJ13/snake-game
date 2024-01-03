@@ -4,7 +4,7 @@ const createImageElement = (src) => {
     image.src = src;
     return image;
 };
-const path = "./../../images/snake/";
+const path = "/images/snake/";
 const food = createImageElement(`${path}apple.png`);
 const headUp = createImageElement(`${path}head_up.png`);
 const headDown = createImageElement(`${path}head_down.png`);

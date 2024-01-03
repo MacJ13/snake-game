@@ -7,7 +7,7 @@ const createImageElement = (src: string): HTMLImageElement => {
   return image;
 };
 
-const path = "./../../images/snake/";
+const path = "/images/snake/";
 
 const food = createImageElement(`${path}apple.png`);
 
