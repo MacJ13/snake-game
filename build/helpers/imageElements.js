@@ -21,35 +21,61 @@ const createImageElement = (src) => {
 // const bodyTopLeft = createImageElement(`${path}body_topleft.png`);
 // const bodyTopRight = createImageElement(`${path}body_topright.png`);
 const path = "/images/snake/";
-const food = document.querySelector("#food-img");
-const headUp = document.querySelector(`#head-up`);
-const headDown = document.querySelector(`#head-down`);
-const headRight = document.querySelector(`#head-right`);
-const headLeft = document.querySelector(`#head-left`);
-const tailUp = document.querySelector(`#tail-up`);
-const tailDown = document.querySelector(`#tail-down`);
-const tailRight = document.querySelector(`#tail-right`);
-const tailLeft = document.querySelector(`#tail-left`);
+let food; // = document.querySelector("#food-img")!;
+let headUp; // = document.querySelector(`#head-up`)!;
+let headDown; //= document.querySelector(`#head-down`)!;
+let headRight; // = document.querySelector(`#head-right`)!;
+let headLeft; // = document.querySelector(`#head-left`)!;
+let tailUp; //= document.querySelector(`#tail-up`)!;
+let tailDown; //= document.querySelector(`#tail-down`)!;
+let tailRight; // = document.querySelector(`#tail-right`)!;
+let tailLeft; // = document.querySelector(`#tail-left`)!;
 const bodyVertical = document.querySelector(`#body-vertical`);
 const bodyHorizontal = document.querySelector(`#body-horizontal`);
 const bodyBottomLeft = document.querySelector(`#body-bottom-left`);
 const bodyBottomRight = document.querySelector(`#body-bottom-right`);
 const bodyTopLeft = document.querySelector(`#body-top-left`);
 const bodyTopRight = document.querySelector(`#body-top-right`);
-export const images = {
-    food,
-    headUp,
-    headDown,
-    headRight,
-    headLeft,
-    tailUp,
-    tailDown,
-    tailRight,
-    tailLeft,
-    bodyVertical,
-    bodyHorizontal,
-    bodyBottomLeft,
-    bodyBottomRight,
-    bodyTopLeft,
-    bodyTopRight,
+export const paths = [
+    { path: `${path}apple.png`, name: "food" },
+    { path: `${path}head_up.png`, name: "headUp" },
+    { path: `${path}head_down.png`, name: "headDown" },
+    { path: `${path}head_right.png`, name: "headRight" },
+    { path: `${path}head_left.png`, name: "headLeft" },
+    { path: `${path}tail_up.png`, name: "tailUp" },
+    { path: `${path}tail_down.png`, name: "tailDown" },
+    { path: `${path}tail_right.png`, name: "tailRight" },
+    { path: `${path}tail_left.png`, name: "tailLeft" },
+    { path: `${path}body_vertical.png`, name: "bodyVertical" },
+    { path: `${path}body_horizontal.png`, name: "bodyHorizontal" },
+    { path: `${path}body_bottomleft.png`, name: "bodyBottomLeft" },
+    { path: `${path}body_bottomright.png`, name: "bodyBottomRight" },
+    { path: `${path}body_topleft.png`, name: "bodyTopLeft" },
+    { path: `${path}body_topright.png`, name: "bodyTopRight" },
+];
+export const getImage = (image) => {
+    return new Promise((resolve, reject) => {
+        const imgEl = new Image();
+        imgEl.src = image.path;
+        imgEl.onload = () => {
+            resolve(imgEl);
+        };
+    });
 };
+// export const images = {
+//   food,
+//   headUp,
+//   headDown,
+//   headRight,
+//   headLeft,
+//   tailUp,
+//   tailDown,
+//   tailRight,
+//   tailLeft,
+//   bodyVertical,
+//   bodyHorizontal,
+//   bodyBottomLeft,
+//   bodyBottomRight,
+//   bodyTopLeft,
+//   bodyTopRight,
+// };

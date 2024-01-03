@@ -31,17 +31,17 @@ const createImageElement = (src: string): HTMLImageElement => {
 
 const path = "/images/snake/";
 
-const food: HTMLImageElement = document.querySelector("#food-img")!;
+let food: HTMLImageElement; // = document.querySelector("#food-img")!;
 
-const headUp: HTMLImageElement = document.querySelector(`#head-up`)!;
-const headDown: HTMLImageElement = document.querySelector(`#head-down`)!;
-const headRight: HTMLImageElement = document.querySelector(`#head-right`)!;
-const headLeft: HTMLImageElement = document.querySelector(`#head-left`)!;
+let headUp: HTMLImageElement; // = document.querySelector(`#head-up`)!;
+let headDown: HTMLImageElement; //= document.querySelector(`#head-down`)!;
+let headRight: HTMLImageElement; // = document.querySelector(`#head-right`)!;
+let headLeft: HTMLImageElement; // = document.querySelector(`#head-left`)!;
 
-const tailUp: HTMLImageElement = document.querySelector(`#tail-up`)!;
-const tailDown: HTMLImageElement = document.querySelector(`#tail-down`)!;
-const tailRight: HTMLImageElement = document.querySelector(`#tail-right`)!;
-const tailLeft: HTMLImageElement = document.querySelector(`#tail-left`)!;
+let tailUp: HTMLImageElement; //= document.querySelector(`#tail-up`)!;
+let tailDown: HTMLImageElement; //= document.querySelector(`#tail-down`)!;
+let tailRight: HTMLImageElement; // = document.querySelector(`#tail-right`)!;
+let tailLeft: HTMLImageElement; // = document.querySelector(`#tail-left`)!;
 
 const bodyVertical: HTMLImageElement =
   document.querySelector(`#body-vertical`)!;
@@ -56,20 +56,54 @@ const bodyTopLeft: HTMLImageElement = document.querySelector(`#body-top-left`)!;
 const bodyTopRight: HTMLImageElement =
   document.querySelector(`#body-top-right`)!;
 
-export const images = {
-  food,
-  headUp,
-  headDown,
-  headRight,
-  headLeft,
-  tailUp,
-  tailDown,
-  tailRight,
-  tailLeft,
-  bodyVertical,
-  bodyHorizontal,
-  bodyBottomLeft,
-  bodyBottomRight,
-  bodyTopLeft,
-  bodyTopRight,
+export const paths: { path: string; name: string }[] = [
+  { path: `${path}apple.png`, name: "food" },
+  { path: `${path}head_up.png`, name: "headUp" },
+  { path: `${path}head_down.png`, name: "headDown" },
+  { path: `${path}head_right.png`, name: "headRight" },
+  { path: `${path}head_left.png`, name: "headLeft" },
+  { path: `${path}tail_up.png`, name: "tailUp" },
+  { path: `${path}tail_down.png`, name: "tailDown" },
+  { path: `${path}tail_right.png`, name: "tailRight" },
+  { path: `${path}tail_left.png`, name: "tailLeft" },
+  { path: `${path}body_vertical.png`, name: "bodyVertical" },
+  { path: `${path}body_horizontal.png`, name: "bodyHorizontal" },
+  { path: `${path}body_bottomleft.png`, name: "bodyBottomLeft" },
+  { path: `${path}body_bottomright.png`, name: "bodyBottomRight" },
+  { path: `${path}body_topleft.png`, name: "bodyTopLeft" },
+  { path: `${path}body_topright.png`, name: "bodyTopRight" },
+];
+
+type ImageElement = {
+  el: HTMLImageElement;
+  name: string;
 };
+export const getImage = (image: { path: string; name: string }) => {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const imgEl = new Image();
+
+    imgEl.src = image.path;
+
+    imgEl.onload = () => {
+      resolve(imgEl);
+    };
+  });
+};
+
+// export const images = {
+//   food,
+//   headUp,
+//   headDown,
+//   headRight,
+//   headLeft,
+//   tailUp,
+//   tailDown,
+//   tailRight,
+//   tailLeft,
+//   bodyVertical,
+//   bodyHorizontal,
+//   bodyBottomLeft,
+//   bodyBottomRight,
+//   bodyTopLeft,
+//   bodyTopRight,
+// };

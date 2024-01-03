@@ -1,10 +1,12 @@
 import { Game, Board } from "./types/types.js";
-import { images } from "./helpers/imageElements.js";
+// import { images } from "./helpers/imageElements.js";
 
+import { getImage, paths } from "./helpers/imageElements.js";
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 let currentImage: HTMLImageElement;
 
+const imgElements: any = {};
 // image elements
 
 // Game data
@@ -81,16 +83,16 @@ const drawElement = (imageEl: HTMLImageElement, x: number, y: number): void => {
 
 // function draw snake head image depending on direction
 const drawHead = (head: SnakePart): void => {
-  let headImage: HTMLImageElement = images.headUp;
+  let headImage: HTMLImageElement = imgElements.headUp;
 
   if (head.direction === "up") {
-    headImage = images.headUp;
+    headImage = imgElements.headUp;
   } else if (head.direction === "right") {
-    headImage = images.headRight;
+    headImage = imgElements.headRight;
   } else if (head.direction === "down") {
-    headImage = images.headDown;
+    headImage = imgElements.headDown;
   } else if (head.direction === "left") {
-    headImage = images.headLeft;
+    headImage = imgElements.headLeft;
   }
 
   drawElement(headImage, head.x, head.y);
@@ -99,13 +101,13 @@ const drawHead = (head: SnakePart): void => {
 // function set Tail image on last part of snake body depending on snake direction
 const setTailImage = (prevDirection: string): void => {
   if (prevDirection === "up") {
-    currentImage = images.tailDown;
+    currentImage = imgElements.tailDown;
   } else if (prevDirection === "right") {
-    currentImage = images.tailLeft;
+    currentImage = imgElements.tailLeft;
   } else if (prevDirection === "down") {
-    currentImage = images.tailUp;
+    currentImage = imgElements.tailUp;
   } else if (prevDirection === "left") {
-    currentImage = images.tailRight;
+    currentImage = imgElements.tailRight;
   }
 };
 
@@ -114,11 +116,11 @@ const setBodyImage = (direction: String): void => {
   switch (direction) {
     case "right":
     case "left":
-      currentImage = images.bodyHorizontal;
+      currentImage = imgElements.bodyHorizontal;
       break;
     case "up":
     case "down":
-      currentImage = images.bodyVertical;
+      currentImage = imgElements.bodyVertical;
       break;
     default:
       throw new Error("no direction");
@@ -133,21 +135,21 @@ const setCornerImage = (
   switch (true) {
     case prevDirection === "up" && currentDirection === "right":
     case prevDirection === "left" && currentDirection === "down":
-      currentImage = images.bodyTopLeft;
+      currentImage = imgElements.bodyTopLeft;
       break;
     case prevDirection === "down" && currentDirection === "right":
     case prevDirection === "left" && currentDirection === "up":
-      currentImage = images.bodyBottomLeft;
+      currentImage = imgElements.bodyBottomLeft;
       break;
 
     case prevDirection === "right" && currentDirection === "down":
     case prevDirection === "up" && currentDirection === "left":
-      currentImage = images.bodyTopRight;
+      currentImage = imgElements.bodyTopRight;
       break;
 
     case prevDirection === "right" && currentDirection === "up":
     case prevDirection === "down" && currentDirection === "left":
-      currentImage = images.bodyBottomRight;
+      currentImage = imgElements.bodyBottomRight;
       break;
 
     default:
@@ -181,7 +183,7 @@ const drawSnake = (): void => {
 };
 
 const drawFood = (): void => {
-  drawElement(images.food, food[0], food[1]);
+  drawElement(imgElements.food, food[0], food[1]);
 };
 
 const isSnakeOffBoard = (x: number, y: number): boolean => {
@@ -265,7 +267,17 @@ const init = () => {
   }
 };
 
-init();
+const createElements = async () => {
+  const images = await Promise.all(paths.map((path) => getImage(path)));
+
+  paths.forEach((p, i) => {
+    imgElements[p.name] = images[i];
+  });
+
+  init();
+};
+
+createElements();
 
 document.addEventListener("keydown", (e: KeyboardEvent) => {
   // prevent to not press keyboard to trigger reverse current direction
