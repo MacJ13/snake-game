@@ -3,6 +3,7 @@ import { images } from "./helpers/imageElements.js";
 
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
+let currentImage: HTMLImageElement;
 
 // Game data
 const game: Game = {
@@ -93,15 +94,41 @@ const drawHead = (head: SnakePart): void => {
   drawImage(headImage, head.x, head.y);
 };
 
+// function set Tail image on last part of snake body depending on direction
+const setTailImage = (prevDirection: string): void => {
+  if (prevDirection === "up") {
+    currentImage = images.tailDown;
+  } else if (prevDirection === "right") {
+    currentImage = images.tailLeft;
+  } else if (prevDirection === "down") {
+    currentImage = images.tailUp;
+  } else if (prevDirection === "left") {
+    currentImage = images.tailRight;
+  }
+};
+
 // draw snake parts on canvas board
 const drawSnake = (): void => {
   ctx.fillStyle = "orangered";
   ctx.strokeStyle = "#ecfeff";
   const [head] = snake;
 
-  snake.forEach((part) => {
-    ctx.fillRect(part.x, part.y, board.cellSize, board.cellSize);
-  });
+  for (let i = 1; i < snake.length; i++) {
+    const currentPart = snake[i];
+    const previousPart = snake[i - 1];
+
+    if (i === snake.length - 1) {
+      setTailImage(previousPart.direction);
+      drawImage(currentImage, currentPart.x, currentPart.y);
+    } else {
+      ctx.fillRect(
+        currentPart.x,
+        currentPart.y,
+        board.cellSize,
+        board.cellSize
+      );
+    }
+  }
 
   drawHead(head);
 };
