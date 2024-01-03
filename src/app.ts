@@ -186,20 +186,27 @@ const isSnakeOffBoard = (x: number, y: number): boolean => {
   return x < 0 || x >= board.width || y < 0 || y >= board.height;
 };
 
+// detect collision between head nad other snake parts
+const isHeadCollidingWithBody = (): boolean => {
+  const [head, ...others] = snake;
+
+  return others.every((other) => head.x !== other.x || head.y !== other.y);
+};
+
 // move snake elements every animation
 const moveSnake = (): void => {
-  const [head, ...others] = snake;
+  const head = snake[0];
   const last = snake[snake.length - 1];
 
   // detect collision between head and other snake parts
-  const collision = others.every(
-    (part) => head.x !== part.x || head.y !== part.y
-  );
+  // const collision = others.every(
+  //   (part) => head.x !== part.x || head.y !== part.y
+  // );
 
-  if (!collision) {
-    game.playing = false;
-    return;
-  }
+  // if (!collision) {
+  //   game.playing = false;
+  //   return;
+  // }
 
   // detect if snake get the food
   if (food[0] === head.x && food[1] === head.y) {
@@ -216,21 +223,17 @@ const moveSnake = (): void => {
 };
 
 const draw = (): void => {
-  if (!game.playing) {
+  const head = snake[0];
+  const offboard = isSnakeOffBoard(head.x, head.y);
+  const collision = isHeadCollidingWithBody();
+
+  if (!collision || offboard) {
     return;
   }
+
   clearSnake();
   drawFood();
   drawSnake();
-
-  const head = snake[0];
-
-  const offboard = isSnakeOffBoard(head.x, head.y);
-
-  if (offboard) {
-    game.playing = false;
-    return;
-  }
 
   moveSnake();
 };
