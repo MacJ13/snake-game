@@ -4,9 +4,6 @@ import { images } from "./helpers/imageElements.js";
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
-// // image elements
-// const foodImg: HTMLImageElement = document.querySelector("#food-img")!;
-
 // Game data
 const game: Game = {
   startX: 200,
@@ -74,26 +71,43 @@ const addRandomFoodPosition = (): void => {
   }
 };
 
+// function to draw image on canvas board
 const drawImage = (imageEl: HTMLImageElement, x: number, y: number): void => {
   ctx.drawImage(imageEl, x, y, board.cellSize, board.cellSize);
+};
+
+// function draw snake head image depending on direction
+const drawHead = (head: SnakePart): void => {
+  let headImage: HTMLImageElement = images.headUp;
+
+  if (head.direction === "up") {
+    headImage = images.headUp;
+  } else if (head.direction === "right") {
+    headImage = images.headRight;
+  } else if (head.direction === "down") {
+    headImage = images.headDown;
+  } else if (head.direction === "left") {
+    headImage = images.headLeft;
+  }
+
+  drawImage(headImage, head.x, head.y);
 };
 
 // draw snake parts on canvas board
 const drawSnake = (): void => {
   ctx.fillStyle = "orangered";
   ctx.strokeStyle = "#ecfeff";
+  const [head] = snake;
 
   snake.forEach((part) => {
     ctx.fillRect(part.x, part.y, board.cellSize, board.cellSize);
   });
+
+  drawHead(head);
 };
 
 const drawFood = (): void => {
   drawImage(images.food, food[0], food[1]);
-
-  // ctx.drawImage(foodImg, food[0], food[1], board.cellSize, board.cellSize);
-  // // ctx.fillStyle = "black";
-  // // ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
 };
 
 const isSnakeOffBoard = (x: number, y: number): boolean => {
