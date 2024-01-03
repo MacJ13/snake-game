@@ -73,7 +73,7 @@ const drawHead = (head) => {
     }
     drawImage(headImage, head.x, head.y);
 };
-// function set Tail image on last part of snake body depending on direction
+// function set Tail image on last part of snake body depending on snake direction
 const setTailImage = (prevDirection) => {
     if (prevDirection === "up") {
         currentImage = images.tailDown;
@@ -86,6 +86,21 @@ const setTailImage = (prevDirection) => {
     }
     else if (prevDirection === "left") {
         currentImage = images.tailRight;
+    }
+};
+// function set body image depending on snake direction
+const setBodyImage = (direction) => {
+    switch (direction) {
+        case "right":
+        case "left":
+            currentImage = images.bodyHorizontal;
+            break;
+        case "up":
+        case "down":
+            currentImage = images.bodyVertical;
+            break;
+        default:
+            throw new Error("no direction");
     }
 };
 // draw snake parts on canvas board
@@ -101,8 +116,9 @@ const drawSnake = () => {
             drawImage(currentImage, currentPart.x, currentPart.y);
         }
         else {
-            ctx.fillRect(currentPart.x, currentPart.y, board.cellSize, board.cellSize);
+            setBodyImage(currentPart.direction);
         }
+        drawImage(currentImage, currentPart.x, currentPart.y);
     }
     drawHead(head);
 };
