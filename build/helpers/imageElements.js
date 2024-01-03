@@ -21,21 +21,21 @@ const createImageElement = (src) => {
 // const bodyTopLeft = createImageElement(`${path}body_topleft.png`);
 // const bodyTopRight = createImageElement(`${path}body_topright.png`);
 const path = "/images/snake/";
-const food = document.getElementById("food-img");
-const headUp = document.getElementById(`${path}head-up`);
-const headDown = document.getElementById(`${path}head-down`);
-const headRight = document.getElementById(`${path}head-right`);
-const headLeft = document.getElementById(`${path}head-left`);
-const tailUp = document.getElementById(`${path}tail-up`);
-const tailDown = document.getElementById(`${path}tail-down`);
-const tailRight = document.getElementById(`${path}tail-right`);
-const tailLeft = document.getElementById(`${path}tail-left`);
-const bodyVertical = document.getElementById(`${path}body-vertical`);
-const bodyHorizontal = document.getElementById(`${path}body-horizontal`);
-const bodyBottomLeft = document.getElementById(`${path}body-bottom-left`);
-const bodyBottomRight = document.getElementById(`${path}body-bottom-right`);
-const bodyTopLeft = document.getElementById(`${path}body-top-left`);
-const bodyTopRight = document.getElementById(`${path}body-top-right`);
+const food = document.querySelector("#food-img");
+const headUp = document.querySelector(`#head-up`);
+const headDown = document.querySelector(`#head-down`);
+const headRight = document.querySelector(`#head-right`);
+const headLeft = document.querySelector(`#head-left`);
+const tailUp = document.querySelector(`#tail-up`);
+const tailDown = document.querySelector(`#tail-down`);
+const tailRight = document.querySelector(`#tail-right`);
+const tailLeft = document.querySelector(`#tail-left`);
+const bodyVertical = document.querySelector(`#body-vertical`);
+const bodyHorizontal = document.querySelector(`#body-horizontal`);
+const bodyBottomLeft = document.querySelector(`#body-bottom-left`);
+const bodyBottomRight = document.querySelector(`#body-bottom-right`);
+const bodyTopLeft = document.querySelector(`#body-top-left`);
+const bodyTopRight = document.querySelector(`#body-top-right`);
 export const images = {
     food,
     headUp,

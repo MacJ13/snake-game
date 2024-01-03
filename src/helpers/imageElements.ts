@@ -31,25 +31,30 @@ const createImageElement = (src: string): HTMLImageElement => {
 
 const path = "/images/snake/";
 
-const food = document.getElementById("food-img");
+const food: HTMLImageElement = document.querySelector("#food-img")!;
 
-const headUp = document.getElementById(`${path}head-up`);
-const headDown = document.getElementById(`${path}head-down`);
-const headRight = document.getElementById(`${path}head-right`);
-const headLeft = document.getElementById(`${path}head-left`);
+const headUp: HTMLImageElement = document.querySelector(`#head-up`)!;
+const headDown: HTMLImageElement = document.querySelector(`#head-down`)!;
+const headRight: HTMLImageElement = document.querySelector(`#head-right`)!;
+const headLeft: HTMLImageElement = document.querySelector(`#head-left`)!;
 
-const tailUp = document.getElementById(`${path}tail-up`);
-const tailDown = document.getElementById(`${path}tail-down`);
-const tailRight = document.getElementById(`${path}tail-right`);
-const tailLeft = document.getElementById(`${path}tail-left`);
+const tailUp: HTMLImageElement = document.querySelector(`#tail-up`)!;
+const tailDown: HTMLImageElement = document.querySelector(`#tail-down`)!;
+const tailRight: HTMLImageElement = document.querySelector(`#tail-right`)!;
+const tailLeft: HTMLImageElement = document.querySelector(`#tail-left`)!;
 
-const bodyVertical = document.getElementById(`${path}body-vertical`);
-const bodyHorizontal = document.getElementById(`${path}body-horizontal`);
+const bodyVertical: HTMLImageElement =
+  document.querySelector(`#body-vertical`)!;
+const bodyHorizontal: HTMLImageElement =
+  document.querySelector(`#body-horizontal`)!;
 
-const bodyBottomLeft = document.getElementById(`${path}body-bottom-left`);
-const bodyBottomRight = document.getElementById(`${path}body-bottom-right`);
-const bodyTopLeft = document.getElementById(`${path}body-top-left`);
-const bodyTopRight = document.getElementById(`${path}body-top-right`);
+const bodyBottomLeft: HTMLImageElement =
+  document.querySelector(`#body-bottom-left`)!;
+const bodyBottomRight: HTMLImageElement =
+  document.querySelector(`#body-bottom-right`)!;
+const bodyTopLeft: HTMLImageElement = document.querySelector(`#body-top-left`)!;
+const bodyTopRight: HTMLImageElement =
+  document.querySelector(`#body-top-right`)!;
 
 export const images = {
   food,

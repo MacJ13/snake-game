@@ -1,45 +1,8 @@
+import { images } from "./helpers/imageElements.js";
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 let currentImage;
 // image elements
-const createImageElement = (src) => {
-    const image = new Image();
-    image.src = src;
-    return image;
-};
-const path = "/images/snake/";
-const foodApple = createImageElement(`${path}apple.png`);
-const headUp = createImageElement(`${path}head_up.png`);
-const headDown = createImageElement(`${path}head_down.png`);
-const headRight = createImageElement(`${path}head_right.png`);
-const headLeft = createImageElement(`${path}head_left.png`);
-const tailUp = createImageElement(`${path}tail_up.png`);
-const tailDown = createImageElement(`${path}tail_down.png`);
-const tailRight = createImageElement(`${path}tail_right.png`);
-const tailLeft = createImageElement(`${path}tail_left.png`);
-const bodyVertical = createImageElement(`${path}body_vertical.png`);
-const bodyHorizontal = createImageElement(`${path}body_horizontal.png`);
-const bodyBottomLeft = createImageElement(`${path}body_bottomleft.png`);
-const bodyBottomRight = createImageElement(`${path}body_bottomright.png`);
-const bodyTopLeft = createImageElement(`${path}body_topleft.png`);
-const bodyTopRight = createImageElement(`${path}body_topright.png`);
-const images = {
-    foodApple,
-    headUp,
-    headDown,
-    headRight,
-    headLeft,
-    tailUp,
-    tailDown,
-    tailRight,
-    tailLeft,
-    bodyVertical,
-    bodyHorizontal,
-    bodyBottomLeft,
-    bodyBottomRight,
-    bodyTopLeft,
-    bodyTopRight,
-};
 // Game data
 const game = {
     startX: 200,
@@ -187,7 +150,7 @@ const drawSnake = () => {
     drawHead(head);
 };
 const drawFood = () => {
-    drawElement(images.foodApple, food[0], food[1]);
+    drawElement(images.food, food[0], food[1]);
 };
 const isSnakeOffBoard = (x, y) => {
     return x < 0 || x >= board.width || y < 0 || y >= board.height;
@@ -278,4 +241,3 @@ document.addEventListener("keydown", (e) => {
         game.direction = "left";
     }
 });
-export {};
