@@ -103,6 +103,29 @@ const setBodyImage = (direction) => {
             throw new Error("no direction");
     }
 };
+// function set body corner image when snake turn direction
+const setCornerImage = (currentDirection, prevDirection) => {
+    switch (true) {
+        case prevDirection === "up" && currentDirection === "right":
+        case prevDirection === "left" && currentDirection === "down":
+            currentImage = images.bodyTopLeft;
+            break;
+        case prevDirection === "down" && currentDirection === "right":
+        case prevDirection === "left" && currentDirection === "up":
+            currentImage = images.bodyBottomLeft;
+            break;
+        case prevDirection === "right" && currentDirection === "down":
+        case prevDirection === "up" && currentDirection === "left":
+            currentImage = images.bodyTopRight;
+            break;
+        case prevDirection === "right" && currentDirection === "up":
+        case prevDirection === "down" && currentDirection === "left":
+            currentImage = images.bodyBottomRight;
+            break;
+        default:
+            throw new Error("no direction");
+    }
+};
 // draw snake parts on canvas board
 const drawSnake = () => {
     ctx.fillStyle = "orangered";
@@ -115,8 +138,11 @@ const drawSnake = () => {
             setTailImage(previousPart.direction);
             drawImage(currentImage, currentPart.x, currentPart.y);
         }
-        else {
+        else if (currentPart.direction === previousPart.direction) {
             setBodyImage(currentPart.direction);
+        }
+        else {
+            setCornerImage(currentPart.direction, previousPart.direction);
         }
         drawImage(currentImage, currentPart.x, currentPart.y);
     }
