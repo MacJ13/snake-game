@@ -186,6 +186,10 @@ const isSnakeOffBoard = (x: number, y: number): boolean => {
   return x < 0 || x >= board.width || y < 0 || y >= board.height;
 };
 
+const isSnakeCoveringFood = (x: number, y: number): boolean => {
+  return food[0] === x && food[1] === y;
+};
+
 // detect collision between head nad other snake parts
 const isHeadCollidingWithBody = (): boolean => {
   const [head, ...others] = snake;
@@ -196,30 +200,21 @@ const isHeadCollidingWithBody = (): boolean => {
 // move snake elements every animation
 const moveSnake = (): void => {
   const head = snake[0];
-  const last = snake[snake.length - 1];
+  const eatenFood = isSnakeCoveringFood(head.x, head.y); // detect if snake get the food
 
-  // detect collision between head and other snake parts
-  // const collision = others.every(
-  //   (part) => head.x !== part.x || head.y !== part.y
-  // );
-
-  // if (!collision) {
-  //   game.playing = false;
-  //   return;
-  // }
-
-  // detect if snake get the food
-  if (food[0] === head.x && food[1] === head.y) {
-    snake.push({ ...last });
-
-    addRandomFoodPosition();
-  }
-
+  // create next possible position for snake
   const nextX = head.x + game.dx;
   const nextY = head.y + game.dy;
+
   // add new position and remove last position
-  snake.pop();
+  let last: SnakePart = snake.pop()!;
   snake.unshift({ x: nextX, y: nextY, direction: game.direction });
+
+  if (eatenFood) {
+    // increase snake length after get the food
+    snake.push(last);
+    addRandomFoodPosition();
+  }
 };
 
 const draw = (): void => {
