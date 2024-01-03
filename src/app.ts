@@ -73,7 +73,7 @@ const addRandomFoodPosition = (): void => {
 };
 
 // function to draw image on canvas board
-const drawImage = (imageEl: HTMLImageElement, x: number, y: number): void => {
+const drawElement = (imageEl: HTMLImageElement, x: number, y: number): void => {
   ctx.drawImage(imageEl, x, y, board.cellSize, board.cellSize);
 };
 
@@ -91,7 +91,7 @@ const drawHead = (head: SnakePart): void => {
     headImage = images.headLeft;
   }
 
-  drawImage(headImage, head.x, head.y);
+  drawElement(headImage, head.x, head.y);
 };
 
 // function set Tail image on last part of snake body depending on snake direction
@@ -165,21 +165,21 @@ const drawSnake = (): void => {
 
     if (i === snake.length - 1) {
       setTailImage(previousPart.direction);
-      drawImage(currentImage, currentPart.x, currentPart.y);
+      drawElement(currentImage, currentPart.x, currentPart.y);
     } else if (currentPart.direction === previousPart.direction) {
       setBodyImage(currentPart.direction);
     } else {
       setCornerImage(currentPart.direction, previousPart.direction);
     }
 
-    drawImage(currentImage, currentPart.x, currentPart.y);
+    drawElement(currentImage, currentPart.x, currentPart.y);
   }
 
   drawHead(head);
 };
 
 const drawFood = (): void => {
-  drawImage(images.food, food[0], food[1]);
+  drawElement(images.food, food[0], food[1]);
 };
 
 const isSnakeOffBoard = (x: number, y: number): boolean => {
