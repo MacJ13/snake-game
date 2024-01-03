@@ -1,10 +1,11 @@
 import { Game, Board } from "./types/types.js";
+import { images } from "./helpers/imageElements.js";
 
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
-// image elements
-const foodImg: HTMLImageElement = document.querySelector("#food-img")!;
+// // image elements
+// const foodImg: HTMLImageElement = document.querySelector("#food-img")!;
 
 // Game data
 const game: Game = {
@@ -73,6 +74,10 @@ const addRandomFoodPosition = (): void => {
   }
 };
 
+const drawImage = (imageEl: HTMLImageElement, x: number, y: number): void => {
+  ctx.drawImage(imageEl, x, y, board.cellSize, board.cellSize);
+};
+
 // draw snake parts on canvas board
 const drawSnake = (): void => {
   ctx.fillStyle = "orangered";
@@ -84,9 +89,11 @@ const drawSnake = (): void => {
 };
 
 const drawFood = (): void => {
-  ctx.drawImage(foodImg, food[0], food[1], board.cellSize, board.cellSize);
-  // ctx.fillStyle = "black";
-  // ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
+  drawImage(images.food, food[0], food[1]);
+
+  // ctx.drawImage(foodImg, food[0], food[1], board.cellSize, board.cellSize);
+  // // ctx.fillStyle = "black";
+  // // ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
 };
 
 const isSnakeOffBoard = (x: number, y: number): boolean => {

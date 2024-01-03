@@ -1,7 +1,8 @@
+import { images } from "./helpers/imageElements.js";
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
-// image elements
-const foodImg = document.querySelector("#food-img");
+// // image elements
+// const foodImg: HTMLImageElement = document.querySelector("#food-img")!;
 // Game data
 const game = {
     startX: 200,
@@ -52,6 +53,9 @@ const addRandomFoodPosition = () => {
         food[1] = y;
     }
 };
+const drawImage = (imageEl, x, y) => {
+    ctx.drawImage(imageEl, x, y, board.cellSize, board.cellSize);
+};
 // draw snake parts on canvas board
 const drawSnake = () => {
     ctx.fillStyle = "orangered";
@@ -61,9 +65,10 @@ const drawSnake = () => {
     });
 };
 const drawFood = () => {
-    ctx.drawImage(foodImg, food[0], food[1], board.cellSize, board.cellSize);
-    // ctx.fillStyle = "black";
-    // ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
+    drawImage(images.food, food[0], food[1]);
+    // ctx.drawImage(foodImg, food[0], food[1], board.cellSize, board.cellSize);
+    // // ctx.fillStyle = "black";
+    // // ctx.fillRect(food[0], food[1], board.cellSize, board.cellSize);
 };
 const isSnakeOffBoard = (x, y) => {
     return x < 0 || x >= board.width || y < 0 || y >= board.height;
@@ -154,4 +159,3 @@ document.addEventListener("keydown", (e) => {
         game.direction = "left";
     }
 });
-export {};
