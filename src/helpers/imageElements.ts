@@ -1,22 +1,22 @@
-import foodImg from "../images/snake/apple.png";
+import foodImg from "/images/snake/apple.png";
 
-import headUpImg from "../images/snake/head_up.png";
-import headDownImg from "../images/snake/head_down.png";
-import headRightImg from "../images/snake/head_right.png";
-import headLeftImg from "../images/snake/head_left.png";
+import headUpImg from "/images/snake/head_up.png";
+import headDownImg from "/images/snake/head_down.png";
+import headRightImg from "/images/snake/head_right.png";
+import headLeftImg from "/images/snake/head_left.png";
 
-import tailUpImg from "../images/snake/tail_up.png";
-import tailDownImg from "../images/snake/tail_down.png";
-import tailLeftImg from "../images/snake/tail_left.png";
-import tailRightImg from "../images/snake/tail_right.png";
+import tailUpImg from "/images/snake/tail_up.png";
+import tailDownImg from "/images/snake/tail_down.png";
+import tailLeftImg from "/images/snake/tail_left.png";
+import tailRightImg from "/images/snake/tail_right.png";
 
-import bodyVerticalImg from "../images/snake/body_vertical.png";
-import bodyHorizontalImg from "../images/snake/body_horizontal.png";
+import bodyVerticalImg from "/images/snake/body_vertical.png";
+import bodyHorizontalImg from "/images/snake/body_horizontal.png";
 
-import bodyBottomLeftImg from "../images/snake/body_bottomleft.png";
-import bodyBottomRightImg from "../images/snake/body_bottomright.png";
-import bodyTopLeftImg from "../images/snake/body_topleft.png";
-import bodyTopRightImg from "../images/snake/body_topright.png";
+import bodyBottomLeftImg from "/images/snake/body_bottomleft.png";
+import bodyBottomRightImg from "/images/snake/body_bottomright.png";
+import bodyTopLeftImg from "/images/snake/body_topleft.png";
+import bodyTopRightImg from "/images/snake/body_topright.png";
 
 // image elements
 const createImageElement = (src: string): HTMLImageElement => {
