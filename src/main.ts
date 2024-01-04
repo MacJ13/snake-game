@@ -1,5 +1,16 @@
+import "./style.css";
 import { Game, Board } from "./types/types.js";
 import { images } from "./helpers/imageElements.js";
+
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Snake game</h1>
+    </div>
+    <canvas id="canvas"></canvas>
+  </div>
+
+`;
 
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
 const ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;

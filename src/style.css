@@ -1,15 +1,15 @@
+:root {
+  --body-bg: #93c5fd;
+  --canvas-bg: #ecfeff;
+  --canvas-border-bg: #aad1fd;
+}
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-}
-
-:root {
-  --body-bg: #93c5fd;
-  --canvas-bg: #ecfeff;
-  --canvas-border-bg: #aad1fd;
 }
 
 html {
@@ -21,8 +21,12 @@ html {
 
 body {
   background: var(--body-bg);
-  background-image: url(images/bg.jpg);
+  background-image: url(/src/assets/images/bg.jpg);
+  background-position: center;
+  background-size: cover;
+}
 
+.container {
   min-height: 100vh;
   text-align: center;
   width: 100%;
