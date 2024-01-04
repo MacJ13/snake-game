@@ -1,21 +1,30 @@
 export interface Board {
+  startX: number;
+  startY: number;
   height: number;
   width: number;
   cellSize: number;
 }
 
-type GameInit = {
-  startX: number;
-  startY: number;
-  dx: number;
-  dy: number;
+export interface Position {
+  x: number;
+  y: number;
+}
+
+export interface SnakePosition extends Position {
+  direction: string;
+}
+
+type GameSnake = {
   direction: string;
   snakeParts: number;
 };
-type GameStatus = {
+type GameState = {
+  dx: number;
+  dy: number;
   changeDirection: boolean;
   playing: boolean;
   score: number;
 };
 
-export type Game = GameInit & GameStatus;
+export type Game = GameSnake & GameState;

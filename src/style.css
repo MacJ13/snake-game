@@ -21,7 +21,7 @@ html {
 
 body {
   background: var(--body-bg);
-  background-image: url(images/bg.jpg);
+  background-image: url(/images/bg.jpg);
 
   min-height: 100vh;
   text-align: center;

@@ -1,5 +1,5 @@
 import "./style.css";
-import { Game, Board } from "./types/types.js";
+import { Game, Board, SnakePosition, Position } from "./types/types.js";
 import { images } from "./helpers/imageElements.js";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -17,32 +17,26 @@ let currentImage: HTMLImageElement;
 
 // Game data
 const game: Game = {
-  startX: 200,
-  startY: 200,
   dx: 1,
   dy: 0,
-  changeDirection: false,
   direction: "right",
-  playing: true,
-  score: 0,
   snakeParts: 3,
+  score: 0,
+  changeDirection: false,
+  playing: true,
 };
 
 // Board data
 const board: Board = {
+  startX: 200,
+  startY: 200,
   width: 400,
   height: 400,
   cellSize: 20,
 };
 
-interface SnakePart {
-  x: number;
-  y: number;
-  direction: string;
-}
-
-const snake: SnakePart[] = []; // snake position parts
-const food: number[] = []; // food position;
+const snake: SnakePosition[] = []; // snake position parts
+const food: Position = { x: 0, y: 0 }; // food position;
 
 // data for animation
 let then: number = Date.now();
@@ -57,8 +51,8 @@ const createBoard = (): void => {
 // add initial snake part positions
 const initSnakePositions = () => {
   for (let i = 0; i <= game.snakeParts; i++) {
-    const x = game.startX - i * board.cellSize;
-    const y = game.startY;
+    const x = board.startX - i * board.cellSize;
+    const y = board.startY;
 
     snake[i] = { x, y, direction: "right" };
   }
@@ -77,8 +71,8 @@ const addRandomFoodPosition = (): void => {
 
   if (isAvailableSnakePosition) addRandomFoodPosition();
   else {
-    food[0] = x;
-    food[1] = y;
+    food.x = x;
+    food.y = y;
   }
 };
 
@@ -88,7 +82,7 @@ const drawImage = (imageEl: HTMLImageElement, x: number, y: number): void => {
 };
 
 // function draw snake head image depending on direction
-const drawHead = (head: SnakePart): void => {
+const drawHead = (head: SnakePosition): void => {
   let headImage: HTMLImageElement = images.headUp;
 
   if (head.direction === "up") {
@@ -189,7 +183,7 @@ const drawSnake = (): void => {
 };
 
 const drawFood = (): void => {
-  drawImage(images.food, food[0], food[1]);
+  drawImage(images.food, food.x, food.y);
 };
 
 const isSnakeOffBoard = (x: number, y: number): boolean => {
@@ -197,7 +191,7 @@ const isSnakeOffBoard = (x: number, y: number): boolean => {
 };
 
 const isSnakeCoveringFood = (x: number, y: number): boolean => {
-  return food[0] === x && food[1] === y;
+  return food.x === x && food.y === y;
 };
 
 // detect collision between head nad other snake parts
@@ -217,7 +211,7 @@ const moveSnake = (): void => {
   const nextY = head.y + game.dy;
 
   // add new position and remove last position
-  let last: SnakePart = snake.pop()!;
+  let last: SnakePosition = snake.pop()!;
   snake.unshift({ x: nextX, y: nextY, direction: game.direction });
 
   if (eatenFood) {
@@ -252,7 +246,6 @@ const animate = (): void => {
   // to slow animation frames
   now = Date.now();
   const difference = now - then;
-
   if (difference > 125) {
     game.changeDirection = false;
     then = now;
