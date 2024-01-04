@@ -1,5 +1,6 @@
 import "./style.css";
 import { Game, Board, SnakePosition, Position } from "./types/types.js";
+import { Direction } from "./enums/enums.js";
 import { images } from "./helpers/imageElements.js";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -19,7 +20,7 @@ let currentImage: HTMLImageElement;
 const game: Game = {
   dx: 1,
   dy: 0,
-  direction: "right",
+  direction: Direction.Right,
   snakeParts: 3,
   score: 0,
   changeDirection: false,
@@ -54,7 +55,7 @@ const initSnakePositions = () => {
     const x = board.startX - i * board.cellSize;
     const y = board.startY;
 
-    snake[i] = { x, y, direction: "right" };
+    snake[i] = { x, y, direction: Direction.Right };
   }
 };
 
@@ -85,13 +86,13 @@ const drawImage = (imageEl: HTMLImageElement, x: number, y: number): void => {
 const drawHead = (head: SnakePosition): void => {
   let headImage: HTMLImageElement = images.headUp;
 
-  if (head.direction === "up") {
+  if (head.direction === Direction.Up) {
     headImage = images.headUp;
-  } else if (head.direction === "right") {
+  } else if (head.direction === Direction.Right) {
     headImage = images.headRight;
-  } else if (head.direction === "down") {
+  } else if (head.direction === Direction.Down) {
     headImage = images.headDown;
-  } else if (head.direction === "left") {
+  } else if (head.direction === Direction.Left) {
     headImage = images.headLeft;
   }
 
@@ -100,13 +101,13 @@ const drawHead = (head: SnakePosition): void => {
 
 // function set Tail image on last part of snake body depending on snake direction
 const setTailImage = (prevDirection: string): void => {
-  if (prevDirection === "up") {
+  if (prevDirection === Direction.Up) {
     currentImage = images.tailDown;
-  } else if (prevDirection === "right") {
+  } else if (prevDirection === Direction.Right) {
     currentImage = images.tailLeft;
-  } else if (prevDirection === "down") {
+  } else if (prevDirection === Direction.Down) {
     currentImage = images.tailUp;
-  } else if (prevDirection === "left") {
+  } else if (prevDirection === Direction.Left) {
     currentImage = images.tailRight;
   }
 };
@@ -114,12 +115,12 @@ const setTailImage = (prevDirection: string): void => {
 // function set body image depending on snake direction
 const setBodyImage = (direction: String): void => {
   switch (direction) {
-    case "right":
-    case "left":
+    case Direction.Right:
+    case Direction.Left:
       currentImage = images.bodyHorizontal;
       break;
-    case "up":
-    case "down":
+    case Direction.Up:
+    case Direction.Down:
       currentImage = images.bodyVertical;
       break;
     default:
@@ -133,22 +134,26 @@ const setCornerImage = (
   prevDirection: string
 ): void => {
   switch (true) {
-    case prevDirection === "up" && currentDirection === "right":
-    case prevDirection === "left" && currentDirection === "down":
+    case prevDirection === Direction.Up && currentDirection === Direction.Right:
+    case prevDirection === Direction.Left &&
+      currentDirection === Direction.Down:
       currentImage = images.bodyTopLeft;
       break;
-    case prevDirection === "down" && currentDirection === "right":
-    case prevDirection === "left" && currentDirection === "up":
+    case prevDirection === Direction.Down &&
+      currentDirection === Direction.Right:
+    case prevDirection === Direction.Left && currentDirection === Direction.Up:
       currentImage = images.bodyBottomLeft;
       break;
 
-    case prevDirection === "right" && currentDirection === "down":
-    case prevDirection === "up" && currentDirection === "left":
+    case prevDirection === Direction.Right &&
+      currentDirection === Direction.Down:
+    case prevDirection === Direction.Up && currentDirection === Direction.Left:
       currentImage = images.bodyTopRight;
       break;
 
-    case prevDirection === "right" && currentDirection === "up":
-    case prevDirection === "down" && currentDirection === "left":
+    case prevDirection === Direction.Right && currentDirection === Direction.Up:
+    case prevDirection === Direction.Down &&
+      currentDirection === Direction.Left:
       currentImage = images.bodyBottomRight;
       break;
 
@@ -276,19 +281,19 @@ document.addEventListener("keydown", (e: KeyboardEvent) => {
   if (e.key === "ArrowUp" && game.dy === 0) {
     game.dy = -1 * board.cellSize;
     game.dx = 0;
-    game.direction = "up";
+    game.direction = Direction.Up;
   } else if (e.key === "ArrowRight" && game.dx === 0) {
     game.dy = 0;
     game.dx = 1 * board.cellSize;
-    game.direction = "right";
+    game.direction = Direction.Right;
   } else if (e.key === "ArrowDown" && game.dy === 0) {
     game.dy = 1 * board.cellSize;
     game.dx = 0;
-    game.direction = "down";
+    game.direction = Direction.Down;
   } else if (e.key === "ArrowLeft" && game.dx === 0) {
     game.dy = 0;
     game.dx = -1 * board.cellSize;
-    game.direction = "left";
+    game.direction = Direction.Left;
   }
 });
 
