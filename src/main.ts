@@ -164,8 +164,8 @@ const setCornerImage = (
 
 // draw snake parts on canvas board
 const drawSnake = (): void => {
-  ctx.fillStyle = "orangered";
-  ctx.strokeStyle = "#ecfeff";
+  // ctx.fillStyle = "orangered";
+  // ctx.strokeStyle = "#ecfeff";
   const [head] = snake;
 
   for (let i = 1; i < snake.length; i++) {
@@ -279,20 +279,20 @@ document.addEventListener("keydown", (e: KeyboardEvent) => {
   game.changeDirection = true;
 
   if (e.key === "ArrowUp" && game.dy === 0) {
-    game.dy = -1 * board.cellSize;
+    game.dy = -board.cellSize;
     game.dx = 0;
     game.direction = Direction.Up;
   } else if (e.key === "ArrowRight" && game.dx === 0) {
     game.dy = 0;
-    game.dx = 1 * board.cellSize;
+    game.dx = board.cellSize;
     game.direction = Direction.Right;
   } else if (e.key === "ArrowDown" && game.dy === 0) {
-    game.dy = 1 * board.cellSize;
+    game.dy = board.cellSize;
     game.dx = 0;
     game.direction = Direction.Down;
   } else if (e.key === "ArrowLeft" && game.dx === 0) {
     game.dy = 0;
-    game.dx = -1 * board.cellSize;
+    game.dx = -board.cellSize;
     game.direction = Direction.Left;
   }
 });
