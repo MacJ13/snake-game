@@ -1,4 +1,26 @@
 // image elements
+
+import foodImg from "/images/snake/apple.png";
+
+import headUpImg from "/images/snake/head_up.png";
+import headDownImg from "/images/snake/head_down.png";
+import headLeftImg from "/images/snake/head_left.png";
+import headRightImg from "/images/snake/head_right.png";
+
+import tailUpImg from "/images/snake/tail_up.png";
+import tailDownImg from "/images/snake/tail_down.png";
+import tailLeftImg from "/images/snake/tail_left.png";
+import tailRightImg from "/images/snake/tail_right.png";
+
+import bodyVerticalImg from "/images/snake/body_vertical.png";
+import bodyHorizontalImg from "/images/snake/body_horizontal.png";
+
+import bodyBottomLeftImg from "/images/snake/body_bottomleft.png";
+import bodyBottomRightImg from "/images/snake/body_bottomright.png";
+import bodyTopLeftImg from "/images/snake/body_topleft.png";
+import bodyTopRightImg from "/images/snake/body_topright.png";
+
+// image elements
 const createImageElement = (src: string): HTMLImageElement => {
   const image = new Image();
 
@@ -7,27 +29,25 @@ const createImageElement = (src: string): HTMLImageElement => {
   return image;
 };
 
-const path = "./../../images/snake/";
+const food = createImageElement(foodImg);
 
-const food = createImageElement(`${path}apple.png`);
+const headUp = createImageElement(headUpImg);
+const headDown = createImageElement(headDownImg);
+const headRight = createImageElement(headRightImg);
+const headLeft = createImageElement(headLeftImg);
 
-const headUp = createImageElement(`${path}head_up.png`);
-const headDown = createImageElement(`${path}head_down.png`);
-const headRight = createImageElement(`${path}head_right.png`);
-const headLeft = createImageElement(`${path}head_left.png`);
+const tailUp = createImageElement(tailUpImg);
+const tailDown = createImageElement(tailDownImg);
+const tailRight = createImageElement(tailRightImg);
+const tailLeft = createImageElement(tailLeftImg);
 
-const tailUp = createImageElement(`${path}tail_up.png`);
-const tailDown = createImageElement(`${path}tail_down.png`);
-const tailRight = createImageElement(`${path}tail_right.png`);
-const tailLeft = createImageElement(`${path}tail_left.png`);
+const bodyVertical = createImageElement(bodyVerticalImg);
+const bodyHorizontal = createImageElement(bodyHorizontalImg);
 
-const bodyVertical = createImageElement(`${path}body_vertical.png`);
-const bodyHorizontal = createImageElement(`${path}body_horizontal.png`);
-
-const bodyBottomLeft = createImageElement(`${path}body_bottomleft.png`);
-const bodyBottomRight = createImageElement(`${path}body_bottomright.png`);
-const bodyTopLeft = createImageElement(`${path}body_topleft.png`);
-const bodyTopRight = createImageElement(`${path}body_topright.png`);
+const bodyBottomLeft = createImageElement(bodyBottomLeftImg);
+const bodyBottomRight = createImageElement(bodyBottomRightImg);
+const bodyTopLeft = createImageElement(bodyTopLeftImg);
+const bodyTopRight = createImageElement(bodyTopRightImg);
 
 export const images = {
   food,

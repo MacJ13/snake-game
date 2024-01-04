@@ -1,12 +1,18 @@
 {
   "name": "snake-game",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "home": "https://macj13.github.io/snake-game",
   "scripts": {
-    "start": "tsc.cmd --watch"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "gh-pages": "^6.1.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
+  }
 }
