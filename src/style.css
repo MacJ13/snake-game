@@ -21,7 +21,7 @@ html {
 
 body {
   background: var(--body-bg);
-  background-image: url(/src/assets/images/bg.jpg);
+  background-image: url(/src/images/bg.jpg);
   background-position: center;
   background-size: cover;
 }
