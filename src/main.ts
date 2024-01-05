@@ -1,15 +1,16 @@
 import "./style.css";
 import { Game, Board, SnakePosition, Position } from "./types/types.js";
 import { Direction } from "./enums/enums.js";
-import { images } from "./helpers/imageElements.js";
+import { imagePaths, images } from "./helpers/imageElements.js";
+import CanvasView from "./view/canvasView.js";
+import HeaderView from "./view/headerView.js";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <div class="container">
+
     <div class="header">
       <h1 class="title">Snake game</h1>
     </div>
     <canvas id="canvas"></canvas>
-  </div>
 `;
 
 const canvas: HTMLCanvasElement = document.querySelector("#canvas")!;
@@ -42,6 +43,11 @@ const food: Position = { x: 0, y: 0 }; // food position;
 // data for animation
 let then: number = Date.now();
 let now: number;
+
+const headerView = new HeaderView();
+const canvasView = new CanvasView(imagePaths);
+
+canvasView.setSize(board.height);
 
 const createBoard = (): void => {
   canvas.width = board.width;
