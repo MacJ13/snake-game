@@ -1,8 +1,12 @@
 class View {
   rootEl: HTMLElement = document.querySelector("#app")!;
 
-  renderEl(el: HTMLElement) {
-    this.rootEl.appendChild(el);
+  renderEl(element: HTMLElement | string) {
+    if (typeof element === "string") {
+      this.rootEl.insertAdjacentHTML("beforeend", element);
+    } else {
+      this.rootEl.appendChild(element);
+    }
   }
 }
 
