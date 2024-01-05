@@ -49,6 +49,29 @@ const bodyBottomRight = createImageElement(bodyBottomRightImg);
 const bodyTopLeft = createImageElement(bodyTopLeftImg);
 const bodyTopRight = createImageElement(bodyTopRightImg);
 
+export const imagePaths = {
+  foodImg,
+
+  headUpImg,
+  headDownImg,
+
+  headLeftImg,
+  headRightImg,
+
+  tailUpImg,
+  tailDownImg,
+  tailLeftImg,
+  tailRightImg,
+
+  bodyVerticalImg,
+  bodyHorizontalImg,
+
+  bodyBottomLeftImg,
+  bodyBottomRightImg,
+  bodyTopLeftImg,
+  bodyTopRightImg,
+};
+
 export const images = {
   food,
   headUp,
