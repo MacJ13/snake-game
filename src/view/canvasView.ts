@@ -1,4 +1,5 @@
 import View from "./View";
+import { BOARD_SIZE } from "../const/consts";
 
 class CanvasView extends View {
   canvasEl: HTMLCanvasElement;
@@ -19,6 +20,8 @@ class CanvasView extends View {
   private createCanvasElement(): HTMLCanvasElement {
     const el = document.createElement("canvas");
     el.id = "canvas";
+    el.width = BOARD_SIZE;
+    el.height = BOARD_SIZE;
 
     return el;
   }
@@ -31,11 +34,6 @@ class CanvasView extends View {
 
   private setImageElSrc(path: string): void {
     this.currentImageEl.src = path;
-  }
-
-  setSize(size: number): void {
-    this.canvasEl.width = size;
-    this.canvasEl.height = size;
   }
 }
 
