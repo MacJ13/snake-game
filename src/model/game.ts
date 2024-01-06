@@ -1,7 +1,7 @@
 import { CELL_SIZE } from "../const/consts";
 import { Direction, Status } from "../enums/enums";
 import { getRandomNumber } from "../helpers/randomNumber";
-import { GameState, SnakePosition } from "../types/types";
+import { GameState, Position, SnakePosition } from "../types/types";
 import Food from "./food";
 import Snake from "./snake";
 
@@ -52,6 +52,10 @@ class Game {
 
   get snakeRestBody(): SnakePosition[] {
     return this.snake.allBody.slice(1);
+  }
+
+  get foodPosition(): Position {
+    return this.food.position;
   }
 
   get state() {
