@@ -12,6 +12,7 @@ const draw = (): void => {
   const { foodPosition } = game;
 
   canvasView.drawFood(foodPosition.x, foodPosition.y);
+  canvasView.drawSnake(game.snakeHead, game.snakeRestBody);
 };
 
 const init = async () => {

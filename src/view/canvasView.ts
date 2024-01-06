@@ -4,7 +4,7 @@ import {
   convertImgElementsToObject,
   createImages,
 } from "../helpers/imageElements";
-import { ImgPath } from "../types/types";
+import { ImgPath, SnakePosition } from "../types/types";
 class CanvasView extends View {
   canvasEl: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
@@ -15,7 +15,7 @@ class CanvasView extends View {
     super();
 
     this.canvasEl = this.createCanvasElement();
-    this.context = this.createCanvasContext()!;
+    this.context = this.createCanvasContext();
 
     this.renderEl(this.canvasEl);
   }
@@ -36,16 +36,28 @@ class CanvasView extends View {
     return el;
   }
 
-  private createCanvasContext() {
-    return this.canvasEl.getContext("2d");
+  private createCanvasContext(): CanvasRenderingContext2D {
+    return this.canvasEl.getContext("2d")!;
   }
 
-  private drawElement(imageEl: HTMLImageElement, x: number, y: number) {
+  private drawElement(imageEl: HTMLImageElement, x: number, y: number): void {
     this.context.drawImage(imageEl, x, y, CELL_SIZE, CELL_SIZE);
   }
 
-  drawFood(x: number, y: number) {
+  drawFood(x: number, y: number): void {
     this.drawElement(this.imageEl.food, x, y);
+  }
+
+  drawSnake(head: SnakePosition, restBody: SnakePosition[]): void {
+    this.context.fillStyle = "orangered";
+
+    for (let i = 0; i < restBody.length; i++) {
+      const currentPart = restBody[i];
+
+      this.context.fillRect(currentPart.x, currentPart.y, CELL_SIZE, CELL_SIZE);
+    }
+
+    this.context.fillRect(head.x, head.y, CELL_SIZE, CELL_SIZE);
   }
 }
 
