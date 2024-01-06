@@ -17,6 +17,11 @@ export interface SnakePosition extends Position {
   direction: string;
 }
 
+export interface ImgPath {
+  id: string;
+  path: string;
+}
+
 export interface GameState {
   dx: number;
   dy: number;

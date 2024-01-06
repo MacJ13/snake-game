@@ -1,24 +1,34 @@
 import View from "./View";
-import { BOARD_SIZE } from "../const/consts";
-
+import { BOARD_SIZE, CELL_SIZE } from "../const/consts";
+import {
+  convertImgElementsToObject,
+  createImages,
+} from "../helpers/imageElements";
+import { ImgPath } from "../types/types";
 class CanvasView extends View {
   canvasEl: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
-  currentImageEl: HTMLImageElement = new Image();
-  imagePaths: Object;
+  snakeCurrentImageEl: HTMLImageElement = new Image();
+  imageEl: any = {};
 
-  constructor(imagePaths: Object) {
+  constructor() {
     super();
-    this.imagePaths = imagePaths;
-    this.canvasEl = this.createCanvasElement();
-    this.context = this.canvasEl.getContext("2d")!;
-    this.renderEl(this.canvasEl);
 
-    this.initImagePaths(imagePaths);
+    this.canvasEl = this.createCanvasElement();
+    this.context = this.createCanvasContext()!;
+
+    this.renderEl(this.canvasEl);
+  }
+
+  async createBoard(images: ImgPath[]): Promise<void> {
+    const imgElements = (await createImages(images)) as HTMLImageElement[];
+    const objImage = convertImgElementsToObject(imgElements);
+
+    this.imageEl = objImage;
   }
 
   private createCanvasElement(): HTMLCanvasElement {
-    const el = document.createElement("canvas");
+    const el = document.createElement("canvas")!;
     el.id = "canvas";
     el.width = BOARD_SIZE;
     el.height = BOARD_SIZE;
@@ -26,14 +36,16 @@ class CanvasView extends View {
     return el;
   }
 
-  private initImagePaths(paths: Object): void {
-    Object.values(paths).forEach((path) => {
-      this.setImageElSrc(path);
-    });
+  private createCanvasContext() {
+    return this.canvasEl.getContext("2d");
   }
 
-  private setImageElSrc(path: string): void {
-    this.currentImageEl.src = path;
+  private drawElement(imageEl: HTMLImageElement, x: number, y: number) {
+    this.context.drawImage(imageEl, x, y, CELL_SIZE, CELL_SIZE);
+  }
+
+  drawFood(x: number, y: number) {
+    this.drawElement(this.imageEl.food, x, y);
   }
 }
 
