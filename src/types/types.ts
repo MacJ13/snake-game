@@ -1,3 +1,5 @@
+import { Direction, Status } from "../enums/enums";
+
 export interface Board {
   startX: number;
   startY: number;
@@ -15,16 +17,21 @@ export interface SnakePosition extends Position {
   direction: string;
 }
 
-type GameSnake = {
+export interface GameState {
+  dx: number;
+  dy: number;
+  direction: Direction;
+  score: number;
+  changeDirection: boolean;
+  status: Status;
+}
+
+export type Game = {
   direction: string;
   snakeParts: number;
-};
-type GameState = {
   dx: number;
   dy: number;
   changeDirection: boolean;
   playing: boolean;
   score: number;
 };
-
-export type Game = GameSnake & GameState;
