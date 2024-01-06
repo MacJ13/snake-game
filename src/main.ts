@@ -1,3 +1,4 @@
+import Events from "./event/events";
 import { imagePaths } from "./helpers/imageElements";
 import Game from "./model/game";
 import "./style.css";
@@ -10,13 +11,36 @@ const game: Game = new Game();
 
 const draw = (): void => {
   const { foodPosition } = game;
-
   canvasView.drawFood(foodPosition.x, foodPosition.y);
-  canvasView.drawSnake(game.snakeHead, game.snakeRestBody);
+  canvasView.drawSnake(game.snakeBody);
 };
+
+// move snake elements every animation
+// const moveSnake = (): void => {
+//   const head = snake[0];
+//   const eatenFood = isSnakeCoveringFood(head.x, head.y); // detect if snake get the food
+
+//   // create next possible position for snake
+//   const nextX = head.x + game.dx;
+//   const nextY = head.y + game.dy;
+
+//   // add new position and remove last position
+//   let last: SnakePosition = snake.pop()!;
+//   snake.unshift({ x: nextX, y: nextY, direction: game.direction });
+
+//   if (eatenFood) {
+//     // increase snake length after get the food
+//     snake.push(last);
+//     addRandomFoodPosition();
+//   }
+// };
+
+const animate = (): void => {};
 
 const init = async () => {
   await canvasView.createBoard(imagePaths);
+
+  animate();
   draw();
 };
 

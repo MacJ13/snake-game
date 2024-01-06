@@ -5,11 +5,12 @@ import {
   createImages,
 } from "../helpers/imageElements";
 import { ImgPath, SnakePosition } from "../types/types";
+import { Direction } from "../enums/enums";
 class CanvasView extends View {
   canvasEl: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
   snakeCurrentImageEl: HTMLImageElement = new Image();
-  imageEl: any = {};
+  imageSnakeEl: any = {};
 
   constructor() {
     super();
@@ -24,7 +25,7 @@ class CanvasView extends View {
     const imgElements = (await createImages(images)) as HTMLImageElement[];
     const objImage = convertImgElementsToObject(imgElements);
 
-    this.imageEl = objImage;
+    this.imageSnakeEl = objImage;
   }
 
   private createCanvasElement(): HTMLCanvasElement {
@@ -44,20 +45,36 @@ class CanvasView extends View {
     this.context.drawImage(imageEl, x, y, CELL_SIZE, CELL_SIZE);
   }
 
-  drawFood(x: number, y: number): void {
-    this.drawElement(this.imageEl.food, x, y);
+  private drawHead(head: SnakePosition): void {
+    if (head.direction === Direction.Up) {
+      this.snakeCurrentImageEl = this.imageSnakeEl.headUp;
+    } else if (head.direction === Direction.Right) {
+      this.snakeCurrentImageEl = this.imageSnakeEl.headRight;
+    } else if (head.direction === Direction.Down) {
+      this.snakeCurrentImageEl = this.imageSnakeEl.headDown;
+    } else if (head.direction === Direction.Left) {
+      this.snakeCurrentImageEl = this.imageSnakeEl.headLeft;
+    }
+
+    this.drawElement(this.snakeCurrentImageEl, head.x, head.y);
   }
 
-  drawSnake(head: SnakePosition, restBody: SnakePosition[]): void {
+  drawFood(x: number, y: number): void {
+    this.drawElement(this.imageSnakeEl.food, x, y);
+  }
+
+  drawSnake(body: SnakePosition[]): void {
     this.context.fillStyle = "orangered";
 
-    for (let i = 0; i < restBody.length; i++) {
-      const currentPart = restBody[i];
+    const head = body[0];
+
+    for (let i = 1; i < body.length; i++) {
+      const currentPart = body[i];
 
       this.context.fillRect(currentPart.x, currentPart.y, CELL_SIZE, CELL_SIZE);
     }
 
-    this.context.fillRect(head.x, head.y, CELL_SIZE, CELL_SIZE);
+    this.drawHead(head);
   }
 }
 
