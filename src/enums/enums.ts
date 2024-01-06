@@ -4,3 +4,9 @@ export enum Direction {
   Left = "left",
   Right = "right",
 }
+
+export enum Status {
+  Playing = "playing",
+  Start = "start",
+  End = "end",
+}
