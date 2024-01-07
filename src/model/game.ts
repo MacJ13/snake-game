@@ -1,4 +1,4 @@
-import { CELL_SIZE } from "../const/consts";
+import { BOARD_SIZE, CELL_SIZE } from "../const/consts";
 import { Direction, Status } from "../enums/enums";
 import { getRandomNumber } from "../helpers/randomNumber";
 import { GameState, Position, SnakePosition } from "../types/types";
@@ -101,6 +101,11 @@ class Game {
 
   set changingDirection(change: boolean) {
     this._state.changeDirection = change;
+  }
+
+  get isSnakeOffBoard(): boolean {
+    const { x, y } = this.snakeHead;
+    return x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE;
   }
 }
 

@@ -13,9 +13,12 @@ let then: number = Date.now();
 let now: number;
 
 const draw = (): void => {
-  const { foodPosition } = game;
+  if (game.isSnakeOffBoard) {
+    return;
+  }
+
   canvasView.clearBoard();
-  canvasView.drawFood(foodPosition.x, foodPosition.y);
+  canvasView.drawFood(game.foodPosition.x, game.foodPosition.y);
   canvasView.drawSnake(game.snakeBody);
 
   game.move();
