@@ -22,6 +22,20 @@ class Game {
     this.generateRandomFoodPosition();
   }
 
+  move(): void {
+    const nextX = this.snakeHead.x + this.state.dx;
+    const nextY = this.snakeHead.y + this.state.dy;
+
+    const newPosition = {
+      x: nextX,
+      y: nextY,
+      direction: this._state.direction,
+    };
+
+    this.snake.getLastPosition();
+    this.snake.addFirstPosition(newPosition);
+  }
+
   private checkAvailablePosition(x: number, y: number) {
     return this.snake.allBody.find((part) => part.x === x && part.y === y);
   }

@@ -15,6 +15,8 @@ const draw = (): void => {
   canvasView.clearBoard();
   canvasView.drawFood(foodPosition.x, foodPosition.y);
   canvasView.drawSnake(game.snakeBody);
+
+  game.move();
 };
 
 const animate = (): void => {
