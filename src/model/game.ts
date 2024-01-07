@@ -50,6 +50,30 @@ class Game {
     else this.food.position = { x: randomX, y: randomY };
   }
 
+  changeSnakeDirection(key: string) {
+    // prevent to not press keyboard to trigger reverse current direction
+    if (this.state.changeDirection) return;
+    this.state.changeDirection = true;
+
+    if (key === "ArrowUp" && this.state.dy === 0) {
+      this.state.dy = -CELL_SIZE;
+      this.state.dx = 0;
+      this.state.direction = Direction.Up;
+    } else if (key === "ArrowRight" && this.state.dx === 0) {
+      this.state.dy = 0;
+      this.state.dx = CELL_SIZE;
+      this.state.direction = Direction.Right;
+    } else if (key === "ArrowDown" && this.state.dy === 0) {
+      this.state.dy = CELL_SIZE;
+      this.state.dx = 0;
+      this.state.direction = Direction.Down;
+    } else if (key === "ArrowLeft" && this.state.dx === 0) {
+      this.state.dy = 0;
+      this.state.dx = -CELL_SIZE;
+      this.state.direction = Direction.Left;
+    }
+  }
+
   get snakeHead(): SnakePosition {
     return this.snake.allBody[0];
   }

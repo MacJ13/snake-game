@@ -1,6 +1,8 @@
+import Events from "./event/events";
 import { imagePaths } from "./helpers/imageElements";
 import Game from "./model/game";
 import "./style.css";
+import View from "./view/View";
 import CanvasView from "./view/canvasView";
 import HeaderView from "./view/headerView";
 
@@ -19,6 +21,11 @@ const draw = (): void => {
   game.move();
 };
 
+const changeDirection = (e: KeyboardEvent): void => {
+  const { key } = e;
+  game.changeSnakeDirection(key);
+};
+
 const animate = (): void => {
   // compare timestamp difference after animate function
   // to slow animation frames
@@ -35,6 +42,8 @@ const animate = (): void => {
 
 const init = async () => {
   await canvasView.createBoard(imagePaths);
+
+  View.onKeyDown(changeDirection);
   animate();
 };
 
