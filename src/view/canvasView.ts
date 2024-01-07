@@ -70,6 +70,20 @@ class CanvasView extends View {
       this.snakeCurrentImageEl = this.imageSnakeEl.tailRight;
   }
 
+  private setBodyImage(direction: string) {
+    switch (direction) {
+      case Direction.Right:
+      case Direction.Left:
+        this.snakeCurrentImageEl = this.imageSnakeEl.bodyHorizontal;
+        break;
+
+      case Direction.Up:
+      case Direction.Down:
+        this.snakeCurrentImageEl = this.imageSnakeEl.bodyVertical;
+        break;
+    }
+  }
+
   drawFood(x: number, y: number): void {
     this.drawElement(this.imageSnakeEl.food, x, y);
   }
@@ -85,6 +99,13 @@ class CanvasView extends View {
 
       if (i === body.length - 1) {
         this.setTailImage(previousPart.direction);
+        this.drawElement(
+          this.snakeCurrentImageEl,
+          currentPart.x,
+          currentPart.y
+        );
+      } else if (currentPart.direction === previousPart.direction) {
+        this.setBodyImage(currentPart.direction);
         this.drawElement(
           this.snakeCurrentImageEl,
           currentPart.x,
