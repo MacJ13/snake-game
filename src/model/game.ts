@@ -20,7 +20,6 @@ class Game {
 
   constructor() {
     this.generateRandomFoodPosition();
-    console.log(this.food.position);
   }
 
   private checkAvailablePosition(x: number, y: number) {
@@ -58,8 +57,12 @@ class Game {
     return this.food.position;
   }
 
-  get state() {
+  get state(): GameState {
     return this._state;
+  }
+
+  set changingDirection(change: boolean) {
+    this._state.changeDirection = change;
   }
 }
 

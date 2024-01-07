@@ -7,6 +7,8 @@ import HeaderView from "./view/headerView";
 const headerView: HeaderView = new HeaderView();
 const canvasView: CanvasView = new CanvasView();
 const game: Game = new Game();
+let then: number = Date.now();
+let now: number;
 
 const draw = (): void => {
   const { foodPosition } = game;
@@ -15,12 +17,22 @@ const draw = (): void => {
   canvasView.drawSnake(game.snakeBody);
 };
 
-const animate = (): void => {};
+const animate = (): void => {
+  // compare timestamp difference after animate function
+  // to slow animation frames
+  now = Date.now();
+  const difference = now - then;
+  if (difference > 125) {
+    game.changingDirection = false;
+    then = now;
+
+    draw();
+  }
+  window.requestAnimationFrame(animate);
+};
 
 const init = async () => {
   await canvasView.createBoard(imagePaths);
-
-  draw();
   animate();
 };
 
