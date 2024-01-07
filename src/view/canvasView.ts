@@ -76,6 +76,10 @@ class CanvasView extends View {
 
     this.drawHead(head);
   }
+
+  clearBoard() {
+    this.context.clearRect(0, 0, BOARD_SIZE, BOARD_SIZE);
+  }
 }
 
 export default CanvasView;
