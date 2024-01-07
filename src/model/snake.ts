@@ -23,6 +23,18 @@ class Snake {
   get allBody(): SnakePosition[] {
     return this.body;
   }
+
+  getLastPosition() {
+    return this.body.pop();
+  }
+
+  addFirstPosition(newPosition: SnakePosition) {
+    this.body.unshift(newPosition);
+  }
+
+  addLastPosition(lastPosition: SnakePosition) {
+    this.body.push(lastPosition);
+  }
 }
 
 export default Snake;
