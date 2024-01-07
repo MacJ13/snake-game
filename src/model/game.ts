@@ -22,22 +22,42 @@ class Game {
     this.generateRandomFoodPosition();
   }
 
-  move(): void {
-    const nextX = this.snakeHead.x + this.state.dx;
-    const nextY = this.snakeHead.y + this.state.dy;
+  private checkAvailablePosition(x: number, y: number) {
+    return this.snake.allBody.find((part) => part.x === x && part.y === y);
+  }
+
+  private get isSnakeCoveringFood(): boolean {
+    return (
+      this.foodPosition.x === this.snakeHead.x &&
+      this.foodPosition.y === this.snakeHead.y
+    );
+  }
+
+  private get newSnakePosition(): SnakePosition {
+    // create next possible position for snake;
+    const x = this.snakeHead.x + this.state.dx;
+    const y = this.snakeHead.y + this.state.dy;
 
     const newPosition = {
-      x: nextX,
-      y: nextY,
+      x,
+      y,
       direction: this._state.direction,
     };
 
-    this.snake.getLastPosition();
-    this.snake.addFirstPosition(newPosition);
+    return newPosition;
   }
 
-  private checkAvailablePosition(x: number, y: number) {
-    return this.snake.allBody.find((part) => part.x === x && part.y === y);
+  move(): void {
+    // add new first position and remove last position
+
+    const last = this.snake.getLastPosition()!;
+    this.snake.addFirstPosition(this.newSnakePosition);
+
+    // check if snake head hit food position
+    if (this.isSnakeCoveringFood) {
+      this.snake.addLastPosition(last);
+      this.generateRandomFoodPosition();
+    }
   }
 
   generateRandomFoodPosition(): void {
