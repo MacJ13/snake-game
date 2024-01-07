@@ -1,4 +1,4 @@
-import { BOARD_SIZE, CELL_SIZE } from "../const/consts";
+import { CELL_SIZE } from "../const/consts";
 import { Direction, Status } from "../enums/enums";
 import { getRandomNumber } from "../helpers/randomNumber";
 import { GameState, Position, SnakePosition } from "../types/types";
@@ -111,6 +111,14 @@ class Game {
     return this.snake.allBody.slice(1);
   }
 
+  get snakeBorderCollision(): boolean {
+    return this.snake.borderCollision;
+  }
+
+  get snakeBodyCollision(): boolean {
+    return this.snake.bodyCollision;
+  }
+
   get foodPosition(): Position {
     return this.food.position;
   }
@@ -118,14 +126,8 @@ class Game {
   get state(): GameState {
     return this._state;
   }
-
   set changingDirection(change: boolean) {
     this._state.changeDirection = change;
-  }
-
-  get isSnakeOffBoard(): boolean {
-    const { x, y } = this.snakeHead;
-    return x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE;
   }
 }
 

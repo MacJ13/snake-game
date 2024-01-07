@@ -1,4 +1,3 @@
-import Events from "./event/events";
 import { imagePaths } from "./helpers/imageElements";
 import Game from "./model/game";
 import "./style.css";
@@ -13,7 +12,7 @@ let then: number = Date.now();
 let now: number;
 
 const draw = (): void => {
-  if (game.isSnakeOffBoard) {
+  if (game.snakeBorderCollision || !game.snakeBodyCollision) {
     return;
   }
 

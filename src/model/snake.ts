@@ -1,4 +1,4 @@
-import { CELL_SIZE } from "../const/consts";
+import { BOARD_SIZE, CELL_SIZE } from "../const/consts";
 import { Direction } from "../enums/enums";
 import { Position, SnakePosition } from "../types/types";
 
@@ -34,6 +34,20 @@ class Snake {
 
   addLastPosition(lastPosition: SnakePosition) {
     this.body.push(lastPosition);
+  }
+
+  get bodyCollision(): boolean {
+    const [head, ...otherBody] = this.body;
+
+    return otherBody.every((other) => head.x !== other.x || head.y !== other.y);
+  }
+
+  get borderCollision(): boolean {
+    const head = this.body[0];
+
+    return (
+      head.x < 0 || head.y < 0 || head.x >= BOARD_SIZE || head.y >= BOARD_SIZE
+    );
   }
 }
 
