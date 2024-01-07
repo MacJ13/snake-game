@@ -84,6 +84,29 @@ class CanvasView extends View {
     }
   }
 
+  private setCornerImage(curDirection: string, prevDirection: string): void {
+    switch (true) {
+      case prevDirection === Direction.Up && curDirection === Direction.Right:
+      case prevDirection === Direction.Left && curDirection === Direction.Down:
+        this.snakeCurrentImageEl = this.imageSnakeEl.bodyTopLeft;
+        break;
+      case prevDirection === Direction.Down && curDirection === Direction.Right:
+      case prevDirection === Direction.Left && curDirection === Direction.Up:
+        this.snakeCurrentImageEl = this.imageSnakeEl.bodyBottomLeft;
+        break;
+
+      case prevDirection === Direction.Right && curDirection === Direction.Down:
+      case prevDirection === Direction.Up && curDirection === Direction.Left:
+        this.snakeCurrentImageEl = this.imageSnakeEl.bodyTopRight;
+        break;
+
+      case prevDirection === Direction.Right && curDirection === Direction.Up:
+      case prevDirection === Direction.Down && curDirection === Direction.Left:
+        this.snakeCurrentImageEl = this.imageSnakeEl.bodyBottomRight;
+        break;
+    }
+  }
+
   drawFood(x: number, y: number): void {
     this.drawElement(this.imageSnakeEl.food, x, y);
   }
@@ -99,26 +122,13 @@ class CanvasView extends View {
 
       if (i === body.length - 1) {
         this.setTailImage(previousPart.direction);
-        this.drawElement(
-          this.snakeCurrentImageEl,
-          currentPart.x,
-          currentPart.y
-        );
       } else if (currentPart.direction === previousPart.direction) {
         this.setBodyImage(currentPart.direction);
-        this.drawElement(
-          this.snakeCurrentImageEl,
-          currentPart.x,
-          currentPart.y
-        );
       } else {
-        this.context.fillRect(
-          currentPart.x,
-          currentPart.y,
-          CELL_SIZE,
-          CELL_SIZE
-        );
+        this.setCornerImage(currentPart.direction, previousPart.direction);
       }
+
+      this.drawElement(this.snakeCurrentImageEl, currentPart.x, currentPart.y);
     }
 
     this.drawHead(head);
