@@ -112,8 +112,6 @@ class CanvasView extends View {
   }
 
   drawSnake(body: SnakePosition[]): void {
-    this.context.fillStyle = "orangered";
-
     const head = body[0];
 
     for (let i = 1; i < body.length; i++) {

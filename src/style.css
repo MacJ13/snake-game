@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Nova Square";
+  src: url("/fonts/NovaSquare-Regular.ttf");
+}
+
 *,
 *::before,
 *::after {
