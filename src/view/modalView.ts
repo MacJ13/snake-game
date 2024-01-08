@@ -19,12 +19,28 @@ class ModalView extends View {
     return div;
   }
 
+  private getEndResult(score: number) {
+    return `Your final score is ${score}.
+    <br/>
+    Press enter to try again.  
+    `;
+  }
+
   hideModalElement(): void {
     this.modalEl.classList.add("transparent");
 
     setTimeout(() => {
       this.modalEl.classList.add("hidden");
     }, 300);
+  }
+
+  showModalElement(score: number): void {
+    this.modalEl.innerHTML = this.getEndResult(score);
+    this.modalEl.classList.remove("hidden");
+
+    setTimeout(() => {
+      this.modalEl.classList.remove("transparent");
+    }, 0);
   }
 }
 

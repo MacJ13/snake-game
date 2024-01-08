@@ -17,6 +17,10 @@ let now: number;
 const draw = (): void => {
   if (!game.playingStatus) return;
   if (game.collision) {
+    game.settleEndStatus();
+    modalView.showModalElement(game.score);
+
+    game.initGameState();
     return;
   }
 
@@ -30,11 +34,12 @@ const draw = (): void => {
 const changeDirection = (e: KeyboardEvent): void => {
   const { key } = e;
 
-  const startStatus = game.checkStartStatus(key);
+  const startStatus = game.checkStatus(key);
 
   if (startStatus) {
     game.settlePlayingStatus();
     modalView.hideModalElement();
+    headerView.updateScore(0);
     return;
   }
   game.changeSnakeDirection(key);

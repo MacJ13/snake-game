@@ -12,6 +12,7 @@ class Snake {
   }
 
   initSnakePositions() {
+    this.body.length = 0;
     for (let i = 0; i < this.size; i++) {
       const newX = this.startPosition.x - i * CELL_SIZE;
       const newY = this.startPosition.y;

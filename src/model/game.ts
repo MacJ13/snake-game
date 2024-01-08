@@ -47,12 +47,22 @@ class Game {
     return newPosition;
   }
 
-  private get score(): number {
-    return this.state.score;
-  }
-
   private increaseScore(): void {
     this.state.score++;
+  }
+
+  initGameState() {
+    this._state = {
+      dx: CELL_SIZE,
+      dy: 0,
+      direction: Direction.Right,
+      score: 0,
+      changeDirection: false,
+      status: Status.Start,
+    };
+
+    this.snake.initSnakePositions();
+    this.generateRandomFoodPosition();
   }
 
   move(updateScore: (score: number) => void): void {
@@ -80,15 +90,21 @@ class Game {
     else this.food.position = { x: randomX, y: randomY };
   }
 
-  checkStartStatus(key: string) {
-    return this.state.status === Status.Start && key === "Enter";
+  checkStatus(key: string) {
+    return this.isPlayingStatus && key === "Enter";
   }
 
   settlePlayingStatus() {
     this.state.status = Status.Playing;
   }
 
+  settleEndStatus() {
+    this.state.status = Status.End;
+  }
+
   changeSnakeDirection(key: string) {
+    if (this.state.status === Status.Start || this.state.status === Status.End)
+      return;
     // prevent to not press keyboard to trigger reverse current direction
     if (this.state.changeDirection) return;
     this.state.changeDirection = true;
@@ -139,6 +155,16 @@ class Game {
 
   get collision(): boolean {
     return this.snake.borderCollision || !this.snake.bodyCollision;
+  }
+
+  get isPlayingStatus(): boolean {
+    return (
+      this.state.status === Status.Start || this.state.status === Status.End
+    );
+  }
+
+  get score(): number {
+    return this.state.score;
   }
 
   get playingStatus(): boolean {
