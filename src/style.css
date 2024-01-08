@@ -50,13 +50,22 @@ body {
 }
 
 #score {
+  display: flex;
+  justify-content: space-between;
+
   font-size: 2rem;
+  margin: auto;
   opacity: 0.95;
+  width: 10rem;
+}
+
+#result {
+  margin-left: 1rem;
 }
 
 #canvas {
   background-color: var(--canvas-bg);
   border-radius: 0.75rem;
-  box-shadow: 0px 0px 0px 0.75rem rgba(249, 72, 72, 0.85);
+  box-shadow: 0px 0px 0px 0.75rem rgba(249, 72, 72, 0.5);
   margin-top: 0.75rem;
 }

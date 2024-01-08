@@ -47,7 +47,15 @@ class Game {
     return newPosition;
   }
 
-  move(): void {
+  private get score(): number {
+    return this.state.score;
+  }
+
+  private increaseScore(): void {
+    this.state.score++;
+  }
+
+  move(cb: (score: number) => void): void {
     // add new first position and remove last position
 
     const last = this.snake.getLastPosition()!;
@@ -57,6 +65,8 @@ class Game {
     if (this.isSnakeCoveringFood) {
       this.snake.addLastPosition(last);
       this.generateRandomFoodPosition();
+      this.increaseScore();
+      cb(this.score);
     }
   }
 
@@ -126,6 +136,7 @@ class Game {
   get state(): GameState {
     return this._state;
   }
+
   set changingDirection(change: boolean) {
     this._state.changeDirection = change;
   }

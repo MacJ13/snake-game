@@ -20,7 +20,7 @@ const draw = (): void => {
   canvasView.drawFood(game.foodPosition.x, game.foodPosition.y);
   canvasView.drawSnake(game.snakeBody);
 
-  game.move();
+  game.move(headerView.updateScore.bind(headerView));
 };
 
 const changeDirection = (e: KeyboardEvent): void => {

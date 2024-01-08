@@ -1,26 +1,28 @@
 import View from "./View";
 
 class HeaderView extends View {
-  private titleEl: HTMLHeadingElement;
-  private scoreEl: HTMLHeadingElement;
+  private resultEl: HTMLElement;
 
   constructor() {
     super();
 
     this.renderHeaderElement("Snake Game");
-    this.titleEl = <HTMLHeadingElement>document.querySelector("#title");
-    this.scoreEl = <HTMLHeadingElement>document.querySelector("#score");
+    this.resultEl = <HTMLHeadingElement>document.querySelector("#result");
   }
 
   private renderHeaderElement(title: string): void {
     const html = `
     <div id="header">
         <h1 id="title">${title}</h1>
-        <h2 id="score">Score: 0</h2>
+        <h2 id="score">Score: <span id="result">0</span></h2>
     </div>
     `;
 
     this.renderEl(html);
+  }
+
+  updateScore(score: number): void {
+    this.resultEl.innerHTML = score.toString();
   }
 }
 
