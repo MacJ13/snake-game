@@ -16,7 +16,7 @@ let now: number;
 
 const draw = (): void => {
   if (!game.playingStatus) return;
-  if (game.snakeBorderCollision || !game.snakeBodyCollision) {
+  if (game.collision) {
     return;
   }
 

@@ -129,19 +129,16 @@ class Game {
     return this.snake.allBody.slice(1);
   }
 
-  get snakeBorderCollision(): boolean {
-    return this.snake.borderCollision;
-  }
-
-  get snakeBodyCollision(): boolean {
-    return this.snake.bodyCollision;
-  }
-
   get foodPosition(): Position {
     return this.food.position;
   }
+
   get state(): GameState {
     return this._state;
+  }
+
+  get collision(): boolean {
+    return this.snake.borderCollision || !this.snake.bodyCollision;
   }
 
   get playingStatus(): boolean {
