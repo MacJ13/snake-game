@@ -15,6 +15,7 @@ let then: number = Date.now();
 let now: number;
 
 const draw = (): void => {
+  if (!game.playingStatus) return;
   if (game.snakeBorderCollision || !game.snakeBodyCollision) {
     return;
   }
@@ -28,6 +29,14 @@ const draw = (): void => {
 
 const changeDirection = (e: KeyboardEvent): void => {
   const { key } = e;
+
+  const startStatus = game.checkStartStatus(key);
+
+  if (startStatus) {
+    game.settlePlayingStatus();
+    modalView.hideModalElement();
+    return;
+  }
   game.changeSnakeDirection(key);
 };
 
@@ -39,7 +48,6 @@ const animate = (): void => {
   if (difference > 125) {
     game.changingDirection = false;
     then = now;
-
     draw();
   }
   window.requestAnimationFrame(animate);

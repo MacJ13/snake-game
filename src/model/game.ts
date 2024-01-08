@@ -15,7 +15,7 @@ class Game {
     direction: Direction.Right,
     score: 0,
     changeDirection: false,
-    status: Status.Playing,
+    status: Status.Start,
   };
 
   constructor() {
@@ -55,7 +55,7 @@ class Game {
     this.state.score++;
   }
 
-  move(cb: (score: number) => void): void {
+  move(updateScore: (score: number) => void): void {
     // add new first position and remove last position
 
     const last = this.snake.getLastPosition()!;
@@ -66,7 +66,7 @@ class Game {
       this.snake.addLastPosition(last);
       this.generateRandomFoodPosition();
       this.increaseScore();
-      cb(this.score);
+      updateScore(this.score);
     }
   }
 
@@ -78,6 +78,14 @@ class Game {
 
     if (isPositionAvailable) this.generateRandomFoodPosition();
     else this.food.position = { x: randomX, y: randomY };
+  }
+
+  checkStartStatus(key: string) {
+    return this.state.status === Status.Start && key === "Enter";
+  }
+
+  settlePlayingStatus() {
+    this.state.status = Status.Playing;
   }
 
   changeSnakeDirection(key: string) {
@@ -132,9 +140,12 @@ class Game {
   get foodPosition(): Position {
     return this.food.position;
   }
-
   get state(): GameState {
     return this._state;
+  }
+
+  get playingStatus(): boolean {
+    return this.state.status === Status.Playing;
   }
 
   set changingDirection(change: boolean) {
