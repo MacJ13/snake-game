@@ -30,14 +30,15 @@ body {
   background-image: url(/images/bg.jpg);
   background-position: center;
   background-size: cover;
+  color: #fff;
 
   min-height: 100vh;
   text-align: center;
+  position: relative;
   width: 100%;
 }
 
 #header {
-  color: #fff;
   letter-spacing: 0.25rem;
   padding: 1rem 0.5rem;
 }
@@ -68,4 +69,28 @@ body {
   border-radius: 0.75rem;
   box-shadow: 0px 0px 0px 0.75rem rgba(249, 72, 72, 0.5);
   margin-top: 0.75rem;
+}
+
+#modal {
+  align-items: center;
+  background-color: #00000091;
+  display: flex;
+  font-size: 3.5rem;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  opacity: 1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  transition: opacity 0.3s;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.transparent {
+  opacity: 0 !important;
 }

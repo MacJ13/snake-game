@@ -4,9 +4,12 @@ import "./style.css";
 import View from "./view/View";
 import CanvasView from "./view/canvasView";
 import HeaderView from "./view/headerView";
+import ModalView from "./view/modalView";
 
 const headerView: HeaderView = new HeaderView();
 const canvasView: CanvasView = new CanvasView();
+const modalView: ModalView = new ModalView();
+
 const game: Game = new Game();
 let then: number = Date.now();
 let now: number;
