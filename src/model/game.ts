@@ -102,6 +102,10 @@ class Game {
     this.state.status = Status.End;
   }
 
+  blockChangingDirection() {
+    this.state.changeDirection = false;
+  }
+
   changeSnakeDirection(key: string) {
     if (this.state.status === Status.Start || this.state.status === Status.End)
       return;
@@ -169,10 +173,6 @@ class Game {
 
   get playingStatus(): boolean {
     return this.state.status === Status.Playing;
-  }
-
-  set changingDirection(change: boolean) {
-    this._state.changeDirection = change;
   }
 }
 

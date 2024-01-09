@@ -1,5 +1,6 @@
 import { imagePaths } from "./helpers/imageElements";
 import Game from "./model/game";
+import Animation from "./model/animation";
 import "./style.css";
 import View from "./view/View";
 import CanvasView from "./view/canvasView";
@@ -11,10 +12,14 @@ const canvasView: CanvasView = new CanvasView();
 const modalView: ModalView = new ModalView();
 
 const game: Game = new Game();
-let then: number = Date.now();
-let now: number;
+const animation: Animation = new Animation();
+// let then: number = Date.now();
+// let now: number;
 
 const draw = (): void => {
+  // prevent to change uncorrect dorection
+  game.blockChangingDirection();
+
   if (!game.playingStatus) return;
   if (game.collision) {
     game.settleEndStatus();
@@ -46,17 +51,24 @@ const changeDirection = (e: KeyboardEvent): void => {
 };
 
 const animate = (): void => {
-  // compare timestamp difference after animate function
-  // to slow animation frames
-  now = Date.now();
-  const difference = now - then;
-  if (difference > 125) {
-    game.changingDirection = false;
-    then = now;
-    draw();
-  }
-  window.requestAnimationFrame(animate);
+  animation.run(draw);
+
+  animation.requestAnimationFrame(animate);
 };
+
+// const animate = (): void => {
+//   // compare timestamp difference after animate function
+//   // to slow animation frames
+//   now = Date.now();
+//   const difference = now - then;
+//   if (difference > 125) {
+//     then = now;
+//     game.changingDirection = false;
+
+//     draw();
+//   }
+//   window.requestAnimationFrame(animate);
+// };
 
 const init = async () => {
   await canvasView.createBoard(imagePaths);
