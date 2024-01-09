@@ -1,8 +1,6 @@
 # Snake game
 
-## Description
-
-This is simple snake game.
+This is simple snake game creating with typescript.
 
 ## Link
 
