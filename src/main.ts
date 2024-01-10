@@ -13,8 +13,6 @@ const modalView: ModalView = new ModalView();
 
 const game: Game = new Game();
 const animation: Animation = new Animation();
-// let then: number = Date.now();
-// let now: number;
 
 const draw = (): void => {
   // prevent to change uncorrect dorection
@@ -53,20 +51,6 @@ const animate = (): void => {
   animation.run(draw);
   animation.requestAnimationFrame(animate);
 };
-
-// const animate = (): void => {
-//   // compare timestamp difference after animate function
-//   // to slow animation frames
-//   now = Date.now();
-//   const difference = now - then;
-//   if (difference > 125) {
-//     then = now;
-//     game.changingDirection = false;
-
-//     draw();
-//   }
-//   window.requestAnimationFrame(animate);
-// };
 
 const init = async () => {
   await canvasView.createBoard(imagePaths);
