@@ -38,7 +38,6 @@ const draw = (): void => {
 
 const changeDirection = (e: KeyboardEvent): void => {
   const { key } = e;
-
   const startStatus = game.checkStatus(key);
 
   if (startStatus) {
@@ -52,7 +51,6 @@ const changeDirection = (e: KeyboardEvent): void => {
 
 const animate = (): void => {
   animation.run(draw);
-
   animation.requestAnimationFrame(animate);
 };
 

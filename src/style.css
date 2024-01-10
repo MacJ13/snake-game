@@ -87,6 +87,17 @@ body {
   transition: opacity 0.3s;
 }
 
+#modal__info {
+  line-height: 1.5;
+}
+
+#enter {
+  background-color: var(--canvas-bg);
+  border-radius: 0.5rem;
+  color: var(--body-bg);
+  padding: 0 1rem;
+}
+
 .hidden {
   display: none !important;
 }

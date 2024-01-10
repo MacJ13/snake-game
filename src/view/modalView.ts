@@ -12,17 +12,27 @@ class ModalView extends View {
   }
 
   private createModalElement(): HTMLElement {
-    const div = document.createElement("div");
-    div.id = "modal";
-    div.innerHTML = "press enter to start the game";
+    const modalEl = document.createElement("div");
+    modalEl.id = "modal";
+    modalEl.innerHTML = this.getModalInfo();
 
-    return div;
+    return modalEl;
+  }
+
+  private getModalInfo(): string {
+    return "<div id='modal__info'>press <span id='enter'>enter</span> to start the game</div>";
   }
 
   private getEndResult(score: number) {
-    return `Your final score is ${score}.
+    return `
+
+    <div id='modal__info'>
+    Your final score is ${score}.
     <br/>
-    Press enter to try again.  
+    Press <span id="enter">enter</span> to try again.  
+    </div>
+    
+    
     `;
   }
 
