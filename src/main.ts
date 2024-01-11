@@ -42,9 +42,9 @@ const changeDirection = (e: KeyboardEvent): void => {
     game.settlePlayingStatus();
     modalView.hideModalElement();
     headerView.updateScore(0);
-    return;
+  } else {
+    game.changeSnakeDirection(key);
   }
-  game.changeSnakeDirection(key);
 };
 
 const animate = (): void => {
