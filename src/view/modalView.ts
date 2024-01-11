@@ -14,25 +14,22 @@ class ModalView extends View {
   private createModalElement(): HTMLElement {
     const modalEl = document.createElement("div");
     modalEl.id = "modal";
-    modalEl.innerHTML = this.getModalInfo();
+    modalEl.innerHTML = this.renderModalInfo();
 
     return modalEl;
   }
 
-  private getModalInfo(): string {
+  private renderModalInfo(): string {
     return "<div id='modal__info'>press <span id='enter'>enter</span> to start the game</div>";
   }
 
-  private getEndResult(score: number) {
+  private renderModalResult(score: number) {
     return `
-
-    <div id='modal__info'>
-    Your final score is ${score}.
-    <br/>
-    Press <span id="enter">enter</span> to try again.  
-    </div>
-    
-    
+      <div id='modal__info'>
+        Your final score is ${score}.
+        <br/>
+        Press <span id="enter">enter</span> to try again.  
+      </div>
     `;
   }
 
@@ -45,7 +42,7 @@ class ModalView extends View {
   }
 
   showModalElement(score: number): void {
-    this.modalEl.innerHTML = this.getEndResult(score);
+    this.modalEl.innerHTML = this.renderModalResult(score);
     this.modalEl.classList.remove("hidden");
 
     setTimeout(() => {
