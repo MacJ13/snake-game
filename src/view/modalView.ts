@@ -20,7 +20,7 @@ class ModalView extends View {
   }
 
   private renderModalInfo(): string {
-    return "<div id='modal__info'>press <span id='enter'>enter</span> to start the game</div>";
+    return "<div id='modal__info'>Press <span id='enter'>enter</span> to start the game</div>";
   }
 
   private renderModalResult(score: number) {

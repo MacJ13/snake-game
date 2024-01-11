@@ -87,6 +87,13 @@ body {
   transition: opacity 0.3s;
 }
 
+#modal::before {
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
 #modal__info {
   line-height: 1.5;
 }
